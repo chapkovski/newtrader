@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Financial Quiz
+{% endblock %}
+
+{% block content %}
+
+    {{ formset.management_form }}
+
+    {% for foo in formset.forms %}
+       <h5>{{ forloop.counter }}. {{ foo.instance.label }}</h5>
+          {% formfield foo.answer label='' %}
+        {% for hidden in foo.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+
+    {% endfor %}
+
+    {% next_button %}
+
+{% endblock %}

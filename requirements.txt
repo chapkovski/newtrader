@@ -1,0 +1,9 @@
+otree==3.4.0
+psycopg2==2.8.6
+requests
+django-webpack-loader==0.7.0
+python-dateutil
+numpy
+pandas
+pyyaml
+django-countries==7.0

@@ -1,0 +1,20 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Round {{ view.round_number }} out of {{ Constants.num_rounds }}
+{% endblock %}
+
+{% block content %}
+    <div class="card my-3">
+    <div class="card-body">
+        <div class="card-text lead">
+            <div>Round {{ view.round_number }} begins.</div>
+            <div>In this round the crash probability (for each price update) is {{ player.formatted_prob}}</div>
+        </div>
+    </div>
+    </div>
+    {% next_button %}
+{% endblock %}
+
+
