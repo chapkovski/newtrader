@@ -13,8 +13,7 @@ class AnnounceTrader(GeneralPage):
 
 class Trader(GeneralPage):
     live_method = 'register_event'
-    form_model = 'player'
-    form_fields = ['exit_price']
+
 
     def vars_for_template(self):
         return dict()

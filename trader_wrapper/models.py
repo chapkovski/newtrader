@@ -15,6 +15,7 @@ from django.db import models as djmodels
 from django.utils import timezone
 from itertools import cycle
 import json
+import csv
 from django.conf import settings
 
 author = 'Philipp Chapkovski, WZB'
@@ -40,8 +41,25 @@ def flatten(t):
 class Subsession(BaseSubsession):
     tick_frequency = models.FloatField()
     max_length = models.FloatField()
-
+    stock_prices_A = models.LongStringField()
+    stock_prices_B = models.LongStringField()
+    def get_stock_prices_A(self):
+        return json.loads(self.stock_prices_A)
+    def get_stock_prices_B(self):
+        return json.loads(self.stock_prices_B)
     def creating_session(self):
+
+        stock_price_path_A = f'data/prices_markov_A_{self.round_number}.csv'
+        stock_price_path_B = f'data/prices_markov_B_{self.round_number}.csv'
+        with open(stock_price_path_A, newline='') as csvfile:
+            stockreader = csv.DictReader(csvfile, delimiter=',')
+            stockreader = [float(i.get('stock')) for i in stockreader]
+            self.stock_prices_A=json.dumps(stockreader)
+        with open(stock_price_path_B, newline='') as csvfile:
+            stockreader = csv.DictReader(csvfile, delimiter=',')
+            stockreader = [float(i.get('stock')) for i in stockreader]
+            self.stock_prices_B=json.dumps(stockreader)
+
         if self.round_number == 1:
             params = {}
             params['game_rounds'] = Constants.num_rounds
@@ -88,16 +106,31 @@ class Player(BasePlayer):
     end_time = djmodels.DateTimeField(null=True, blank=True)
     payable_round = models.BooleanField()
     day_params = models.LongStringField()
+    stock_up_A=models.IntegerField()
+    stock_up_B=models.IntegerField()
+    confidence_A=models.IntegerField()
+    confidence_B=models.IntegerField()
+    def predictions_send(self, data, timestamp):
+        print('predictions_send registered', data)
+        self.stock_up_A = data.get('stockUpA')
+        self.stock_up_B= data.get('stockUpB')
+        self.confidence_A= data.get('confidenceA')
+        self.confidence_B= data.get('confidenceB')
 
     def register_event(self, data):
         timestamp = timezone.now()
+        action = data.get('action', '')
+        if hasattr(self, action):
+            method = getattr(self, action)
+            method(data, timestamp)
+
         self.events.create(
             part_number=self.round_number,
             owner=self,
             timestamp=timestamp,
-            source='client',
             name=data.pop('name', ''),
-            round_number=data.pop('round_number', None),
+            tick_number=data.pop('tick_number', None),
+            balance=data.pop('balance', None),
             body=json.dumps(data),
         )
 
@@ -118,12 +151,11 @@ class Event(djmodels.Model):
 
     part_number = models.IntegerField()
     owner = djmodels.ForeignKey(to=Player, on_delete=djmodels.CASCADE, related_name='events')
-    source = models.StringField(doc='can be either inner (due to some internal processes) or from client')
     name = models.StringField()
     timestamp = djmodels.DateTimeField(null=True, blank=True)
     body = models.StringField()
     balance = models.FloatField()  # to store the current state of bank account
-    round_number = models.IntegerField()
+    tick_number = models.IntegerField()
 
 
 def custom_export(players):

@@ -20,7 +20,7 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
-        <link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
+    <link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
     <link rel="stylesheet" href="{% static 'front/css/main.css' %}">
     <form action='' method="post" role="form" id="form" autocomplete="off">
         {% csrf_token %}
@@ -28,11 +28,15 @@
             {% include 'pretrade/includes/instructions.html' %}
         </div>
         <script>
+            window.counter=0;
+            window.initialPricesA = {{ subsession.get_stock_prices_A|json }};
+            window.initialPricesB = {{ subsession.get_stock_prices_B|json }};
             window.starting_price=100;
             window.tick_frequency = 6;
             window.gamified = {{ player.gamified|json }};
             window.training ={{ player.training|json }};
             window.socket_path = {{ view.live_url|json }};
+
 
 
         </script>
