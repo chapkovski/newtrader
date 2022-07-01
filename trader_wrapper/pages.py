@@ -17,13 +17,13 @@ class Trader(GeneralPage):
     form_fields = ['exit_price']
 
     def vars_for_template(self):
-        return dict(gps=self.session.vars['game_params'])
+        return dict()
 
     def before_next_page(self):
         self.player.set_payoffs()
 
 
 page_sequence = [
-    AnnounceTrader,
+    # AnnounceTrader,
     Trader,
 ]

@@ -15,5 +15,6 @@ class Instructions(GeneralPage):
     pass
 
 page_sequence = [
-    Instructions,
-    CQPage]
+    # Instructions,
+    # CQPage
+]

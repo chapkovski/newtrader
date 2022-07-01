@@ -33,16 +33,26 @@
             <div class="card-body">
                 <ol class="list-group">
                     <li> After completing the validation questions, you will be redirected to a trading platform where
-                        your job is to decide if and when to sell a virtual stock. </li>
-                    <li> Think of the stock as an asset that you own. You can choose to sell it for experimental cash, and you can do it at any time. </li>
-                    <li> The price of the stock changes at regular intervals (a few seconds). The starting price is E$ {{gps.starting_price}}
-                        (E$ stands for experimental dollars). </li>
-                    <li> At each price update, the price can crash to zero with some probability <b>p</b>. The "crash" probability will be disclosed to you in each round.</li>
-                    <li> If there is no crash (with probability <b>1-p</b>), the asset price can either stay the same, or go up by either E$1 or E$2. All three outcomes are equally likely.</li>
-                    <li> You will interact with the platform over {{gps.game_rounds}} rounds. Each round is up to {{gps.round_length}} seconds long. </li>
-                    <li> The rounds can also end earlier if you sell the asset or if the price crashes to zero, whichever comes first. </li>
+                        your job is to decide if and when to sell a virtual stock.
+                    </li>
+                    <li> Think of the stock as an asset that you own. You can choose to sell it for experimental cash,
+                        and you can do it at any time.
+                    </li>
+                    <li> The price of the stock changes at regular intervals (a few seconds).
+                        (E$ stands for experimental dollars).
+                    </li>
+                    <li> At each price update, the price can crash to zero with some probability <b>p</b>. The "crash"
+                        probability will be disclosed to you in each round.
+                    </li>
+                    <li> If there is no crash (with probability <b>1-p</b>), the asset price can either stay the same,
+                        or go up by either E$1 or E$2. All three outcomes are equally likely.
+                    </li>
+                    <li> You will interact with the platform over 3 rounds. Each round is up to 1 seconds long.</li>
+                    <li> The rounds can also end earlier if you sell the asset or if the price crashes to zero,
+                        whichever comes first.
+                    </li>
                 </ol>
-             </div>
+            </div>
         </div>
 
 
@@ -53,18 +63,24 @@
             <div class="card-body">
 
                 <ol class="list-group list-group-flush">
-                    <li> In each round you can earn money by either holding on to the asset and receiving its value at the end of the round or by selling it and receive the cash equivalent in E$.
+                    <li> In each round you can earn money by either holding on to the asset and receiving its value at
+                        the end of the round or by selling it and receive the cash equivalent in E$.
                     </li>
-                    <li> After each round, you will see a screen with your payoff at the end of the round. </li>
+                    <li> After each round, you will see a screen with your payoff at the end of the round.</li>
                     <li> The rounds are independent of each other: your balance is reset at the beginning of each round.
                     </li>
-                    <li> After the {{gps.game_rounds}} rounds, you will complete a short quiz on trading and investments. <br>
-                        Do not worry if you do not have prior finance knowledge or experience in trading: Just answer to the best of your ability. <br>
+                    <li> After the 3 rounds, you will complete a short quiz on trading and
+                        investments. <br>
+                        Do not worry if you do not have prior finance knowledge or experience in trading: Just answer to
+                        the best of your ability. <br>
                         You will receive a bonus payment for each question you answer correctly on the quiz.
                     </li>
-                    <li> At the end of the experiment, one of the trading rounds will be selected at random as your payment round. <br>
-                        You will receive a bonus payment proportional to your selling profit in the randomly selected round, at a rate of 1 E$ = CAD${{gps.exchange_rate}}. <br>
-                        So, think and play in each round as if it is the round that counts, because it might be! </li>
+                    <li> At the end of the experiment, one of the trading rounds will be selected at random as your
+                        payment round. <br>
+                        You will receive a bonus payment proportional to your selling profit in the randomly selected
+                        round, at a rate of 1 E$ = CAD$1. <br>
+                        So, think and play in each round as if it is the round that counts, because it might be!
+                    </li>
                 </ol>
 
             </div>
@@ -77,24 +93,30 @@
             <div class="card-body">
 
                 <ol class="list-group list-group-flush">
-                    <li> In each round, on the top left corner of the screen, you will see the SELL button. </li>
-                    <li> Clicking on this button will open a window where you can confirm your decision to SELL or change your mind and KEEP the asset for a while longer. <br>
-                        While you are making this decision, the price updates will be paused.</li>
-                    <li> Remember that if you click SELL this round will be over and your profit will be determined by the price you sell the asset for. </li>
+                    <li> In each round, on the top left corner of the screen, you will see the SELL button.</li>
+                    <li> Clicking on this button will open a window where you can confirm your decision to SELL or
+                        change your mind and KEEP the asset for a while longer. <br>
+                        While you are making this decision, the price updates will be paused.
+                    </li>
+                    <li> Remember that if you click SELL this round will be over and your profit will be determined by
+                        the price you sell the asset for.
+                    </li>
 
                 </ol>
             </div>
         </div>
 
-                <div class="card">
+        <div class="card">
             <div class="card-header">
                 What if I do not sell?
             </div>
             <div class="card-body">
 
                 <ol class="list-group list-group-flush">
-                    <li> If during the round price crashes to zero, your profit will be zero. </li>
-                    <li> If during the round there is no crash, you receive the value of the asset at the end of the round. </li>
+                    <li> If during the round price crashes to zero, your profit will be zero.</li>
+                    <li> If during the round there is no crash, you receive the value of the asset at the end of the
+                        round.
+                    </li>
 
                 </ol>
             </div>
@@ -107,10 +129,14 @@
             <div class="card-body">
 
                 <ol class="list-group list-group-flush">
-                    <li> Your total compensation includes both a participation fee and a bonus based on your performance in the experiment and post-experimental quiz. <br>
-                        Payment is made through the Prolific platform.  </li>
+                    <li> Your total compensation includes both a participation fee and a bonus based on your performance
+                        in the experiment and post-experimental quiz. <br>
+                        Payment is made through the Prolific platform.
+                    </li>
                     <li> After you are finished, the computer will select one of the trading rounds at random. <br>
-                        This will be your payment round: You will receive a bonus payment proportional to your end-of-round balance. </li>
+                        This will be your payment round: You will receive a bonus payment proportional to your
+                        end-of-round balance.
+                    </li>
 
                 </ol>
             </div>
