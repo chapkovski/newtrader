@@ -33,7 +33,6 @@
             window.counter=0;
             window.initialPricesA = {{ subsession.get_stock_prices_A|json }};
             window.initialPricesB = {{ subsession.get_stock_prices_B|json }};
-            window.starting_price=100;
             window.tickFrequency = {{ session.config.tick_frequency|json }};
             window.predictionAt = {{ session.config.prediction_at|json }};
             window.gamified = {{ player.gamified|json }};
