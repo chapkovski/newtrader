@@ -23,6 +23,6 @@ class Trader(GeneralPage):
 
 
 page_sequence = [
-    # AnnounceTrader,
+    AnnounceTrader,
     Trader,
 ]

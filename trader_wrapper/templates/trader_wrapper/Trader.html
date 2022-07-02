@@ -28,6 +28,8 @@
             {% include 'pretrade/includes/instructions.html' %}
         </div>
         <script>
+            window.round_number={{ view.round_number|json }};
+            window.num_rounds={{ Constants.num_rounds|json }};
             window.counter=0;
             window.initialPricesA = {{ subsession.get_stock_prices_A|json }};
             window.initialPricesB = {{ subsession.get_stock_prices_B|json }};
