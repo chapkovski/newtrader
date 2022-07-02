@@ -29,7 +29,7 @@ class Constants(BaseConstants):
     name_in_url = 'trader_wrapper'
     players_per_group = None
     training_rounds = [1]
-    num_rounds = 3
+    num_rounds = 4
     tick_frequency = 6
     tick_num = 10
 
@@ -43,22 +43,25 @@ class Subsession(BaseSubsession):
     max_length = models.FloatField()
     stock_prices_A = models.LongStringField()
     stock_prices_B = models.LongStringField()
+
     def get_stock_prices_A(self):
         return json.loads(self.stock_prices_A)
+
     def get_stock_prices_B(self):
         return json.loads(self.stock_prices_B)
+
     def creating_session(self):
 
-        stock_price_path_A = f'data/prices_markov_A_{self.round_number}.csv'
-        stock_price_path_B = f'data/prices_markov_B_{self.round_number}.csv'
+        stock_price_path_A = f'data/prices_markov_A_{self.round_number-1}.csv'
+        stock_price_path_B = f'data/prices_markov_B_{self.round_number-1}.csv'
         with open(stock_price_path_A, newline='') as csvfile:
             stockreader = csv.DictReader(csvfile, delimiter=',')
             stockreader = [float(i.get('stock')) for i in stockreader]
-            self.stock_prices_A=json.dumps(stockreader)
+            self.stock_prices_A = json.dumps(stockreader)
         with open(stock_price_path_B, newline='') as csvfile:
             stockreader = csv.DictReader(csvfile, delimiter=',')
             stockreader = [float(i.get('stock')) for i in stockreader]
-            self.stock_prices_B=json.dumps(stockreader)
+            self.stock_prices_B = json.dumps(stockreader)
 
         if self.round_number == 1:
             params = {}
@@ -81,10 +84,11 @@ class Subsession(BaseSubsession):
         for p in self.get_players():
             p.payable_round = p.participant.vars['payable_round'] == p.round_number
             p.training = p.round_number in self.session.vars['training_rounds']
-            if p.training:
-                p.gamified = False
-            else:
-                p.gamified = p.participant.vars['treatments'][self.round_number - len(Constants.training_rounds) - 1]
+            if self.round_number !=Constants.num_rounds:
+                if p.training:
+                    p.gamified = False
+                else:
+                    p.gamified = p.participant.vars['treatments'][self.round_number - len(Constants.training_rounds) - 1]
 
 
 class Group(BaseGroup):
@@ -99,23 +103,23 @@ class Player(BasePlayer):
     def formatted_prob(self):
         return f"{self.crash_probability:.0%}"
 
-    gamified = models.BooleanField(initial=False)
-    exit_price = models.FloatField()
+    gamified = models.BooleanField()
     training = models.BooleanField()
     start_time = djmodels.DateTimeField(null=True, blank=True)
     end_time = djmodels.DateTimeField(null=True, blank=True)
     payable_round = models.BooleanField()
     day_params = models.LongStringField()
-    stock_up_A=models.IntegerField()
-    stock_up_B=models.IntegerField()
-    confidence_A=models.IntegerField()
-    confidence_B=models.IntegerField()
+    stock_up_A = models.IntegerField()
+    stock_up_B = models.IntegerField()
+    confidence_A = models.IntegerField()
+    confidence_B = models.IntegerField()
+
     def predictions_send(self, data, timestamp):
         print('predictions_send registered', data)
         self.stock_up_A = data.get('stockUpA')
-        self.stock_up_B= data.get('stockUpB')
-        self.confidence_A= data.get('confidenceA')
-        self.confidence_B= data.get('confidenceB')
+        self.stock_up_B = data.get('stockUpB')
+        self.confidence_A = data.get('confidenceA')
+        self.confidence_B = data.get('confidenceB')
 
     def register_event(self, data):
         timestamp = timezone.now()

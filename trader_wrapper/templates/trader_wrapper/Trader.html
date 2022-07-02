@@ -34,8 +34,8 @@
             window.initialPricesA = {{ subsession.get_stock_prices_A|json }};
             window.initialPricesB = {{ subsession.get_stock_prices_B|json }};
             window.tickFrequency = {{ session.config.tick_frequency|json }};
-            window.predictionAt = {{ session.config.prediction_at|json }};
-            window.tradingAt = {{ session.config.trading_at|json }};
+            window.predictionAt = {{ prediction_at|json }};
+            window.tradingAt = {{ trading_at|json }};
             window.gamified = {{ player.gamified|json }};
             window.training ={{ player.training|json }};
             window.socket_path = {{ view.live_url|json }};
