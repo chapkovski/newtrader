@@ -103,7 +103,8 @@ class Player(BasePlayer):
     def formatted_prob(self):
         return f"{self.crash_probability:.0%}"
 
-    gamified = models.BooleanField()
+    gamified = models.BooleanField(label='Which of the two designs above do you prefer?',
+                                   choices=[(False, 'Design 1'), (True, 'Design 2')])
     training = models.BooleanField()
     start_time = djmodels.DateTimeField(null=True, blank=True)
     end_time = djmodels.DateTimeField(null=True, blank=True)
