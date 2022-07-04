@@ -66,7 +66,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     for_prolific=False,
     prolific_redirect_url='http://www.lenta.ru',
     prediction_at=10,
-    trading_at=0,
+    trading_at=6,
     tick_frequency=6,
 )
 
