@@ -66,8 +66,9 @@ SESSION_CONFIG_DEFAULTS = dict(
     for_prolific=False,
     prolific_redirect_url='http://www.lenta.ru',
     prediction_at=10,
-    trading_at=6,
+    trading_at=0,
     tick_frequency=6,
+    awards_at='1,2,3,4,5'
 )
 
 # ISO-639 code

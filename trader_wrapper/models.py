@@ -23,6 +23,7 @@ author = 'Philipp Chapkovski, WZB'
 doc = """
 Backend for trading platform 
 """
+conv = lambda x: [float(i.strip()) for i in x.split(',')]
 
 
 class Constants(BaseConstants):
@@ -51,9 +52,12 @@ class Subsession(BaseSubsession):
         return json.loads(self.stock_prices_B)
 
     def creating_session(self):
+        awards_at = conv(self.session.config.get('awards_at',''))
+        assert len(awards_at) == 5, 'Something is wrong with awards_at settings. Check again'
+        self.session.vars['awards_at'] = awards_at
 
-        stock_price_path_A = f'data/prices_markov_A_{self.round_number-1}.csv'
-        stock_price_path_B = f'data/prices_markov_B_{self.round_number-1}.csv'
+        stock_price_path_A = f'data/prices_markov_A_{self.round_number - 1}.csv'
+        stock_price_path_B = f'data/prices_markov_B_{self.round_number - 1}.csv'
         with open(stock_price_path_A, newline='') as csvfile:
             stockreader = csv.DictReader(csvfile, delimiter=',')
             stockreader = [float(i.get('stock')) for i in stockreader]
@@ -84,11 +88,12 @@ class Subsession(BaseSubsession):
         for p in self.get_players():
             p.payable_round = p.participant.vars['payable_round'] == p.round_number
             p.training = p.round_number in self.session.vars['training_rounds']
-            if self.round_number !=Constants.num_rounds:
+            if self.round_number != Constants.num_rounds:
                 if p.training:
                     p.gamified = False
                 else:
-                    p.gamified = p.participant.vars['treatments'][self.round_number - len(Constants.training_rounds) - 1]
+                    p.gamified = p.participant.vars['treatments'][
+                        self.round_number - len(Constants.training_rounds) - 1]
 
 
 class Group(BaseGroup):

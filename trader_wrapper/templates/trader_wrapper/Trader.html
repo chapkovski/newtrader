@@ -42,6 +42,7 @@
             window.tickFrequency = {{ session.config.tick_frequency|json }};
             window.predictionAt = {{ prediction_at|json }};
             window.tradingAt = {{ trading_at|json }};
+            window.awardsAt={{ session.vars.awards_at|json }};
             window.gamified = {{ player.gamified|json }};
             window.training ={{ player.training|json }};
             window.socket_path = {{ view.live_url|json }};
