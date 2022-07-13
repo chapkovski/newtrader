@@ -8,11 +8,11 @@
 
 {% block body_main %}
 
-    <link rel="prefetch" href="{% static 'front/img/bronze.gif' %}" />
-    <link rel="prefetch" href="{% static 'front/img/silver.gif' %}" />
-    <link rel="prefetch" href="{% static 'front/img/gold.gif' %}" />
-    <link rel="prefetch" href="{% static 'front/img/platinum.gif' %}" />
-    <link rel="prefetch" href="{% static 'front/img/diamond.gif' %}" />
+    <link rel="prefetch" href="{% static 'front/img/bronze.gif' %}"/>
+    <link rel="prefetch" href="{% static 'front/img/silver.gif' %}"/>
+    <link rel="prefetch" href="{% static 'front/img/gold.gif' %}"/>
+    <link rel="prefetch" href="{% static 'front/img/platinum.gif' %}"/>
+    <link rel="prefetch" href="{% static 'front/img/diamond.gif' %}"/>
 
     <link
             rel="stylesheet"
@@ -34,6 +34,14 @@
             {% include 'pretrade/includes/instructions.html' %}
         </div>
         <script>
+            {# gifs paths           #}
+            window.bronzeGifPath= '{% static 'front/img/bronze.gif' %}';
+            window.silverGifPath="{% static 'front/img/silver.gif' %}";
+            window.goldGifPath="{% static 'front/img/gold.gif' %}";
+            window.platinumGifPath="{% static 'front/img/platinum.gif' %}";
+            window.diamondGifPath="{% static 'front/img/diamond.gif' %}";
+            {# end of gifspaths           #}
+
             window.round_number={{ view.round_number|json }};
             window.num_rounds={{ Constants.num_rounds|json }};
             window.counter=0;
@@ -46,6 +54,8 @@
             window.gamified = {{ player.gamified|json }};
             window.training ={{ player.training|json }};
             window.socket_path = {{ view.live_url|json }};
+
+
 
 
 
