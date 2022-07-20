@@ -48,9 +48,9 @@ SESSION_CONFIG_DEFAULTS = dict(
     participation_fee=0.00, doc="",
     for_prolific=False,
     prolific_redirect_url='http://www.lenta.ru',
-    prediction_at=2,
-    trading_at=0,
-    tick_frequency=6,
+    prediction_at=30,
+    trading_at=4,
+    tick_frequency=5,
     awards_at='1,2,3,4,5'
 )
 
