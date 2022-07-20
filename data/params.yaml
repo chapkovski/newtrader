@@ -1,6 +1,14 @@
-tick_frequency: 5
-max_length: 10
-starting_price: 10
-crash_probabilities: [0.01, 0.02, 0.03, 0.05, 0.02]
-training_rounds: [1]
-exchange_rate: 0.05
+-
+  gamified: [true, true, false, false]
+  salient: [false, true, false, true]
+-
+  gamified: [true, true, false, false]
+  salient: [ true, false, true, false]
+-
+  gamified: [ false, false,true, true,]
+  salient: [false, true, false, true]
+-
+  gamified: [ false, false,true, true,]
+  salient: [ true, false, true, false]
+
+

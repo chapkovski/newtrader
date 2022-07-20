@@ -36,6 +36,7 @@
         </div>
         <script>
             {# gifs paths           #}
+            window.snackAlertN=3;
             window.bronzeGifPath= '{% static 'img/bronze.gif' %}';
             window.silverGifPath="{% static 'img/silver.gif' %}";
             window.goldGifPath="{% static 'img/gold.gif' %}";
@@ -53,6 +54,7 @@
             window.tradingAt = {{ trading_at|json }};
             window.awardsAt={{ session.vars.awards_at|json }};
             window.gamified = {{ player.gamified|json }};
+            window.salient = {{ player.salient|json }};
             window.training ={{ player.training|json }};
             window.socket_path = {{ view.live_url|json }};
 

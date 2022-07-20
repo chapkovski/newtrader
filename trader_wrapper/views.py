@@ -21,6 +21,8 @@ class PandasExport(View):
             'owner__round_number',
             'name',
             'balance',
+            'tick_number',
+            'n_transactions',
             'timestamp',
             'body',
             'owner__gamified',

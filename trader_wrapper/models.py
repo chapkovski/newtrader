@@ -16,8 +16,7 @@ from django.utils import timezone
 from itertools import cycle
 import json
 import csv
-from django.conf import settings
-
+import yaml
 author = 'Philipp Chapkovski, WZB'
 
 doc = """
@@ -30,10 +29,11 @@ class Constants(BaseConstants):
     name_in_url = 'trader_wrapper'
     players_per_group = None
     training_rounds = [1]
-    num_rounds = 4
+    num_rounds = 5
     tick_frequency = 6
     tick_num = 10
-
+    with open(r'./data/params.yaml') as file:
+        blocks = yaml.load(file, Loader=yaml.FullLoader)
 
 def flatten(t):
     return [item for sublist in t for item in sublist]
@@ -52,9 +52,11 @@ class Subsession(BaseSubsession):
         return json.loads(self.stock_prices_B)
 
     def creating_session(self):
-        awards_at = conv(self.session.config.get('awards_at',''))
+        awards_at = conv(self.session.config.get('awards_at', ''))
         assert len(awards_at) == 5, 'Something is wrong with awards_at settings. Check again'
         self.session.vars['awards_at'] = awards_at
+
+
 
         stock_price_path_A = f'data/prices_markov_A_{self.round_number - 1}.csv'
         stock_price_path_B = f'data/prices_markov_B_{self.round_number - 1}.csv'
@@ -87,14 +89,15 @@ class Subsession(BaseSubsession):
         self.tick_frequency = Constants.tick_frequency
         for p in self.get_players():
             p.payable_round = p.participant.vars['payable_round'] == p.round_number
-            p.training = p.round_number in self.session.vars['training_rounds']
-            if self.round_number != Constants.num_rounds:
-                if p.training:
-                    p.gamified = False
-                else:
-                    p.gamified = p.participant.vars['treatments'][
-                        self.round_number - len(Constants.training_rounds) - 1]
-
+            if self.round_number == 1:
+                p.training = True
+                p.gamified = False
+                p.salient = False
+            else:
+                _id = (p.id_in_subsession-1) % 4
+                block = Constants.blocks[_id]
+                p.gamified = block.get('gamified')[self.round_number-2]
+                p.salient = block.get('salient')[self.round_number-2]
 
 class Group(BaseGroup):
     pass
@@ -108,8 +111,8 @@ class Player(BasePlayer):
     def formatted_prob(self):
         return f"{self.crash_probability:.0%}"
 
-    gamified = models.BooleanField(label='Which of the two designs above do you prefer?',
-                                   choices=[(False, 'Design 1'), (True, 'Design 2')])
+    salient = models.BooleanField()
+    gamified = models.BooleanField()
     training = models.BooleanField()
     start_time = djmodels.DateTimeField(null=True, blank=True)
     end_time = djmodels.DateTimeField(null=True, blank=True)
@@ -130,6 +133,7 @@ class Player(BasePlayer):
     def register_event(self, data):
         timestamp = timezone.now()
         action = data.get('action', '')
+        print('DATA', data)
         if hasattr(self, action):
             method = getattr(self, action)
             method(data, timestamp)
@@ -139,6 +143,7 @@ class Player(BasePlayer):
             owner=self,
             timestamp=timestamp,
             name=data.pop('name', ''),
+            n_transactions=data.pop('nTransactions', None),
             tick_number=data.pop('tick_number', None),
             balance=data.pop('balance', None),
             body=json.dumps(data),
@@ -166,6 +171,7 @@ class Event(djmodels.Model):
     body = models.StringField()
     balance = models.FloatField()  # to store the current state of bank account
     tick_number = models.IntegerField()
+    n_transactions = models.IntegerField()
 
 
 def custom_export(players):

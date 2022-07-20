@@ -22,7 +22,7 @@ class Trader(GeneralPage):
     live_method = 'register_event'
     def vars_for_template(self):
         if self.round_number == 1:
-            return dict(prediction_at=1,
+            return dict(prediction_at=100,
                         trading_at=0)
 
         return dict(prediction_at=self.session.config.get('prediction_at'),
@@ -34,6 +34,6 @@ class Trader(GeneralPage):
 
 page_sequence = [
     # AnnounceTrader,
-    ChoosingGamification,
+    # ChoosingGamification,
     Trader,
 ]

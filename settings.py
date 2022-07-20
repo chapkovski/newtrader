@@ -3,23 +3,6 @@ import os
 import pandas as pd
 EXTENSION_APPS=['trader_wrapper']
 
-# def get_game_params(url):
-#     df = pd.read_csv(url)
-#     game_params = {i.get('parameter'): i.get('value') for i in df.to_dict('records')}
-#     return game_params
-#
-# def get_round_params(url):
-#     df = pd.read_csv(url)
-#
-#     game_params = {i.get('round_number'): { 'crash_probability':i.get('crash_probability'), 'training': i.get('training')==1, 'tick_frequency':i.get('tick_frequency')} for i in df.to_dict('records')}
-#     return game_params
-#
-# DEFAULT_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8DDDK8eY0eWTwnz8iJSLFheO9_Ah5e16H48cwSJw4vRLWa5bbDaxm91LCF75_Lt7IPi4KmLqftcS2/pub?gid=0&single=true&output=csv"
-# DEFAULT_ROUND_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8DDDK8eY0eWTwnz8iJSLFheO9_Ah5e16H48cwSJw4vRLWa5bbDaxm91LCF75_Lt7IPi4KmLqftcS2/pub?gid=607283197&single=true&output=csv"
-# URL_TO_READ = environ.get('URL_TO_READ', DEFAULT_URL)
-# ROUND_URL_TO_READ = environ.get('ROUND_URL_TO_READ', DEFAULT_ROUND_URL)
-# GAME_PARAMS = get_game_params(URL_TO_READ)
-# ROUND_GAME_PARAMS = get_round_params(ROUND_URL_TO_READ)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TIME_ZONE = 'UTC'
@@ -34,7 +17,7 @@ SESSION_CONFIGS = [
     dict(
         name='traderonlhy',
         display_name="trader ONLY - within-subject",
-        num_demo_participants=2,
+        num_demo_participants=4,
         app_sequence=['trader_wrapper'],
         gamified=True,
     ),
