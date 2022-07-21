@@ -33,7 +33,7 @@ class Trader(GeneralPage):
 
 
 page_sequence = [
-    # AnnounceTrader,
+    AnnounceTrader,
     # ChoosingGamification,
     Trader,
 ]
