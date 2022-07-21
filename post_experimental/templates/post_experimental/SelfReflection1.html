@@ -1,0 +1,35 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block content %}
+    <div class="row d-flex align-content-stretch">
+        <div class="col col-6"  style="height:100%">
+            <div class="card my-3">
+                <div class="card-header">Design 1</div>
+                <div class="card-body text-center">
+                    <img src="{% static 'img/non_gamified.png' %}" alt=""
+                         class="border-1 bordered border rounded img-fluid" >
+                </div>
+            </div>
+        </div>
+        <div class="col col-6 h-100" style="height:100%" >
+            <div class="card my-3">
+                <div class="card-header">Design 2</div>
+                <div class="card-body text-center ">
+                    <img src="{% static 'img/gamified.png' %}" alt="" class="border-1 bordered border rounded img-fluid"
+                          >
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    {% formfields %}
+    {% next_button %}
+
+{% endblock %}

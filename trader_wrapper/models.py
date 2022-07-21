@@ -24,7 +24,13 @@ Backend for trading platform
 """
 conv = lambda x: [float(i.strip()) for i in x.split(',')]
 
-
+price_correspondence = (
+('prices_markov_train_1.csv','prices_markov_train_2.csv'),
+('prices_markov_main_1.csv','prices_markov_main_2.csv'),
+('prices_markov_main_3.csv','prices_markov_main_4.csv'),
+('prices_markov_main_5.csv','prices_markov_main_6.csv'),
+('prices_markov_main_7.csv','prices_markov_main_8.csv'),
+)
 class Constants(BaseConstants):
     name_in_url = 'trader_wrapper'
     players_per_group = None
@@ -56,15 +62,13 @@ class Subsession(BaseSubsession):
         assert len(awards_at) == 5, 'Something is wrong with awards_at settings. Check again'
         self.session.vars['awards_at'] = awards_at
 
-
-
-        stock_price_path_A = f'data/prices_markov_A_{self.round_number - 1}.csv'
-        stock_price_path_B = f'data/prices_markov_B_{self.round_number - 1}.csv'
-        with open(stock_price_path_A, newline='') as csvfile:
+        stock_price_path_A_f, stock_price_path_B_f = price_correspondence[self.round_number-1]
+        pathfinder = lambda  x: f'data/{x}'
+        with open(pathfinder(stock_price_path_A_f), newline='') as csvfile:
             stockreader = csv.DictReader(csvfile, delimiter=',')
             stockreader = [float(i.get('stock')) for i in stockreader]
             self.stock_prices_A = json.dumps(stockreader)
-        with open(stock_price_path_B, newline='') as csvfile:
+        with open(pathfinder(stock_price_path_B_f), newline='') as csvfile:
             stockreader = csv.DictReader(csvfile, delimiter=',')
             stockreader = [float(i.get('stock')) for i in stockreader]
             self.stock_prices_B = json.dumps(stockreader)

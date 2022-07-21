@@ -56,7 +56,6 @@ class Subsession(BaseSubsession):
         for p in self.get_players():
             qs = Constants.fqs.copy()
             for i in qs:
-
                 j = i.copy()
                 j['choices'] = json.dumps(i['choices'])
                 cqs.append(FinQ(owner=p, **j))
@@ -73,6 +72,32 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    # SELF REFLECTION BLOCK
+    sr_prefs = models.StringField(
+        label='If you could trade again, would you rather trade on a platform with Design #1 or Design #2?',
+        choices=['Design 1', 'Design 2'],
+        widget=widgets.RadioSelectHorizontal
+
+    )
+    sr_better_decs = models.StringField(
+        label='Do you believe you made better decisions when the market looked as in Design #1 or #2?',
+        choices=['Design 1', 'Design 2'],
+        widget=widgets.RadioSelectHorizontal
+    )
+    sr_notifications = models.IntegerField(
+        label='Price notifications',
+        choices=range(1,6),
+        widget=widgets.RadioSelectHorizontal
+    )
+    sr_badges = models.IntegerField(label='Achievement badges',
+                                    choices=range(1, 6),
+                                    widget=widgets.RadioSelectHorizontal
+                                    )
+    sr_confetti = models.IntegerField(label="Achievement messages and confetti" ,
+                                      choices=range(1, 6),
+                                      widget=widgets.RadioSelectHorizontal
+                                      )
+    # END OF SELF REFLECTION BLOCK
     gender = models.StringField(choices=Constants.GENDER_CHOICES, widget=widgets.RadioSelectHorizontal)
     age = models.IntegerField()
     email = models.LongStringField(label='E-mail address: ', default='')
@@ -96,6 +121,7 @@ class Player(BasePlayer):
     purpose = models.LongStringField(label='What do you think is the purpose of this study?', default='')
     difficulty = models.LongStringField(label='Did you encounter any difficulty throughout the experiment?', default='')
     vars_dump = models.LongStringField(doc='for storing participant vars')
+
     def start(self):
         self.vars_dump = json.dumps(self.participant.vars, cls=_CurrencyEncoder)
 

@@ -7,6 +7,7 @@ import json
 from otree.api import widgets
 from django.shortcuts import redirect
 
+
 # form for fin qs
 
 class FinQForm(forms.ModelForm):
@@ -29,6 +30,21 @@ finq_formset = inlineformset_factory(parent_model=Player,
                                      can_delete=False,
                                      form=FinQForm,
                                      )
+
+
+class SelfReflection1(Page):
+    form_model = 'player'
+    form_fields = ['sr_prefs', ]
+
+
+class SelfReflection2(Page):
+    form_model = 'player'
+    form_fields = ['sr_better_decs', ]
+
+
+class SelfReflection3(Page):
+    form_model = 'player'
+    form_fields = ['sr_notifications', 'sr_badges', 'sr_confetti']
 
 
 class FinQuiz(Page):
@@ -82,6 +98,8 @@ class Q(Page):
                    'use_leverage',
                    'purpose',
                    'difficulty']
+
+
 class FinalForProlific(Page):
     def is_displayed(self):
         return self.session.config.get('for_prolific')
@@ -90,11 +108,12 @@ class FinalForProlific(Page):
         return redirect(self.session.config.get('prolific_redirect_url'))
 
 
-
-
 page_sequence = [
+    SelfReflection1,
+    SelfReflection2,
+    SelfReflection3,
     FinQuiz,
     Q,
     Results,
-FinalForProlific
+    FinalForProlific
 ]
