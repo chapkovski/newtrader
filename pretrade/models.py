@@ -58,7 +58,7 @@ class Player(BasePlayer):
     )
 
     cq3 = models.StringField(
-        label="Price change notifications may be enabled:",
+        label="Price change notifications are enabled:",
         choices=["For both stocks, in all rounds",
                  "For stock A only, in some rounds",
                  "For stock A only, in all rounds",
@@ -80,8 +80,7 @@ class Player(BasePlayer):
         label="When is the trade count updated?",
         choices=["If your position in any stock changes between two consecutive price updates",
                  "If your position in both stocks changes between two consecutive price updates.",
-                 "Every time you click the BUY or SELL buttons, even between two consecutive price updates",
-                 "Your payoff in a randomly selected round and your correct answers in the post-experimental quiz",
+                 "Every time you click the BUY or SELL buttons, even between two consecutive price updates"
                  ],
         widget=widgets.RadioSelect
     )
