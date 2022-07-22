@@ -13,13 +13,17 @@ class AnnounceTrader(GeneralPage):
 
 class ChoosingGamification(GeneralPage):
     def is_displayed(self):
-        return self.round_number==Constants.num_rounds
+        return self.round_number == Constants.num_rounds
+
     form_model = 'player'
     form_fields = ['gamified']
 
 
 class Trader(GeneralPage):
     live_method = 'register_event'
+    form_model = 'player'
+    form_fields = ['intermediary_payoff']
+
     def vars_for_template(self):
         if self.round_number == 1:
             return dict(prediction_at=100,

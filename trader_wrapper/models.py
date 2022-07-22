@@ -87,8 +87,7 @@ class Subsession(BaseSubsession):
             tcycle = cycle([-1, 1])
             for p in self.session.get_participants():
                 p.vars['treatments'] = treatment_order[::next(tcycle)]
-                lb = max(Constants.training_rounds)
-                p.vars['payable_round'] = random.randint(lb + 1, Constants.num_rounds)
+                p.vars['payable_round'] = random.randint(2, Constants.num_rounds)
 
         self.tick_frequency = Constants.tick_frequency
         for p in self.get_players():
@@ -114,7 +113,7 @@ class Player(BasePlayer):
 
     def formatted_prob(self):
         return f"{self.crash_probability:.0%}"
-
+    intermediary_payoff = models.IntegerField()
     salient = models.BooleanField()
     gamified = models.BooleanField()
     training = models.BooleanField()
@@ -141,7 +140,6 @@ class Player(BasePlayer):
         if hasattr(self, action):
             method = getattr(self, action)
             method(data, timestamp)
-
         self.events.create(
             part_number=self.round_number,
             owner=self,
@@ -158,7 +156,7 @@ class Player(BasePlayer):
 
     def set_payoffs(self):
         if self.payable_round:
-            self.payoff = 1
+            self.payoff = self.intermediary_payoff
             self.participant.vars['payable_round'] = self.round_number
             self.participant.vars['trading_payoff'] = self.payoff
 
