@@ -4,7 +4,7 @@
     - Exactly $112
     - Less than $112
     - Don't know
-    - Refuse to answer
+    - Prefer not to say
   correct: 0
 - label: Imagine that the interest rate on your savings account was 1% per year and inflation was 2% per year. After 1 year, with the money in this account, would you be able to buy
   choices:
@@ -12,7 +12,7 @@
     - Exactly the same as today
     - Less than today
     - Don't know / Not sure
-    - Refuse to answer
+    - Prefer not to say
   correct: 2
 - label: Do you think that the following statement is true or false? "Bonds are normally riskier than stocks."
   choices:
@@ -76,6 +76,7 @@
     - Mutual funds pay a guaranteed rate of return which depends on their past performance
     - None of the above
     - Don't know / Not sure
+    - Prefer not to say
   correct: 1
 - label: Which  of  the  following  statements  is  correct? If somebody buys a bond of firm B
   choices:
@@ -83,7 +84,7 @@
     - She is liable for the company's debts
     - She has lent money to firm B
     - None of the above
-    - Don't know / Not sure
+    - Prefer not to say
   correct: 2
 - label: Suppose  you  owe  $3,000  on  your  credit  card.  You pay a minimum payment of $30 each month. At an annual percentage rate of 12% (or 1% per month), how many years would it take to eliminate your credit card debt if you made no additional new charges?
   choices:
@@ -92,7 +93,7 @@
     - Between 10 and 15 years
     - Never
     - None of the above
-    - Don't know / Not sure
+    - Prefer not to say
   correct: 3
 
 
