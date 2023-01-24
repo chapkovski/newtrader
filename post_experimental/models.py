@@ -80,7 +80,7 @@ class Player(BasePlayer):
 
     )
     sr_better_decs = models.StringField(
-        label='Do you believe you made better decisions when the market looked as in Design #1 or #2?',
+        label='If you can trade again, would you expect to make better decisions when the market looks as in Design #1 or #2?',
         choices=['Design 1', 'Design 2'],
         widget=widgets.RadioSelectHorizontal
     )
@@ -100,7 +100,7 @@ class Player(BasePlayer):
     # END OF SELF REFLECTION BLOCK
     gender = models.StringField(choices=Constants.GENDER_CHOICES, widget=widgets.RadioSelectHorizontal)
     age = models.IntegerField()
-    email = models.LongStringField(label='E-mail address: ', default='')
+    # email = models.LongStringField(label='E-mail address: ', default='')
     nationality = CountryField(blank_label='(select country)', default='CA')
     education = models.StringField(choices=Constants.EDUCATION_CHOICES)
     study_major = models.StringField(choices=Constants.STUDY_MAJOR_CHOICES, label='Study major')
