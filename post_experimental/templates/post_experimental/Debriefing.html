@@ -1,0 +1,43 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Debriefing Letter
+{% endblock %}
+
+{% block content %}
+
+<div class="card my-3 shadow-lg p-3 mb-3 bg-white rounded">
+
+
+    <div class="card-body">
+
+        <div class="card-text">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Dear Participant,</li>
+                <li class="list-group-item">
+                    Thank you for participating in our experimental study! This letter aims to clarify the goals of the experiment and the hypotheses to be tested.  The main purpose of the experiment is to establish whether the gamification of modern trading apps impacts the behavior of retail traders. 
+
+
+                </li>
+                <li class="list-group-item">
+                    Throughout the experiment, each of you traded both on a gamified or a non-gamified platform. Deception was not used at any point throughout the experiment.
+                </li>
+                <li class="list-group-item">
+                    Thank you again for participating in the experiment. Within 24 hours of the start of the experiment, you have the opportunity to refuse consent and, upon written request to the research team (using the Prolific messaging system), to withdraw data corresponding to the part of the experiment you completed. After this time, data will be anonymized (i.e., we will remove the Prolific ID) and cannot be withdrawn.
+                </li>
+                 
+
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+{% next_button %}
+
+{% endblock %}

@@ -83,6 +83,9 @@ class Results(Page):
             quiz_bonus=self.player.payoff
         )
 
+class Debriefing(Page):
+   pass
+
 
 class Q(Page):
     form_model = 'player'
@@ -113,12 +116,13 @@ class FinalForProlific(Page):
 
 
 page_sequence = [
-    SelfReflection1,
-    SelfReflection2,
-    SelfReflection3,
-    SelfReflection4,
-    FinQuiz,
-    Q,
-    Results,
-    FinalForProlific
+    # SelfReflection1,
+    # SelfReflection2,
+    # SelfReflection3,
+    # SelfReflection4,
+    # FinQuiz,
+    # Q,
+    # Results,
+    Debriefing,
+    # FinalForProlific
 ]
