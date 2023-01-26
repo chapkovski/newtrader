@@ -116,13 +116,13 @@ class FinalForProlific(Page):
 
 
 page_sequence = [
-    # SelfReflection1,
-    # SelfReflection2,
-    # SelfReflection3,
-    # SelfReflection4,
-    # FinQuiz,
-    # Q,
-    # Results,
+    SelfReflection1,
+    SelfReflection2,
+    SelfReflection3,
+    SelfReflection4,
+    FinQuiz,
+    Q,
+    Results,
     Debriefing,
-    # FinalForProlific
+    FinalForProlific
 ]

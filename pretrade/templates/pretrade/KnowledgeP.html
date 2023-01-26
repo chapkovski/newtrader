@@ -1,0 +1,87 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Survey
+{% endblock %}
+
+{% block content %}
+<style>
+    .otree-body {
+    max-width: 1070px;
+}
+
+
+</style>
+<input type="hidden" id="surveyholder" name="surveyholder">
+<script src="https://unpkg.com/survey-jquery@1.9.70/survey.jquery.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/survey-jquery@1.9.70/defaultV2.min.css" />
+<link rel="stylesheet" href="./index.css" />
+
+ 
+<div id="surveyElement"></div>
+
+<script>
+    const json = {
+        questions: [
+            {
+                "type": "rating",
+                "name": "knowledge",
+                isRequired:true,
+                "title": {
+                    "default": "On a scale from zero to ten, where zero is not at all knowledgeable about personal finance and ten is very knowledgeable about personal finance, what number would you be on the scale?",
+
+                },
+                "rateMax": 0,
+                "rateMax": 10,
+                "maxRateDescription": {
+                    "default": "Not at all knowledgeable",
+
+                },
+                "minRateDescription": {
+                    "default": "Very knowledgeable",
+
+                }
+            }
+        ],
+
+
+
+        "showPrevButton": false,
+        showCompletedPage: false,
+        showPrevButton: false,
+        completeText: 'Next',
+    };
+
+</script>
+
+<script>
+    Survey.defaultBootstrapCss.navigationButton = "btn-primary btn-lg";
+    // Survey
+    //     .StylesManager
+    //     .applyTheme("bootstrap");
+
+    const survey = new Survey.Model(json);
+
+    survey
+        .onComplete
+        .add(function (sender) {
+            document
+            $('#surveyholder').val(JSON.stringify(sender.data, null, 3))
+            $('#form').submit()
+            ;
+        });
+
+    $("#surveyElement").Survey({ model: survey });
+</script>
+
+<style>
+    label:focus-within {
+    border-color: white!important;
+}
+.sd-root-modern{
+    background: none;
+}
+</style>
+
+{% endblock %}
