@@ -39,6 +39,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    consent = models.BooleanField(widget=widgets.CheckboxInput,
+    label=' By checking this box, I am agreeing to take part in this research study.')
     cq1 = models.StringField(
         label="The stock price just went up. At the next price update,",
         choices=["The stock price is likelier to go up again",
