@@ -41,8 +41,12 @@ class SelfReflection2(Page):
     form_model = 'player'
     form_fields = ['sr_better_decs', ]
 
-
 class SelfReflection3(Page):
+    form_model = 'player'
+    form_fields = ['sr_better_have_option', ]
+
+
+class SelfReflection4(Page):
     form_model = 'player'
     form_fields = ['sr_notifications', 'sr_badges', 'sr_confetti']
 
@@ -79,13 +83,16 @@ class Results(Page):
             quiz_bonus=self.player.payoff
         )
 
+class Debriefing(Page):
+   pass
+
 
 class Q(Page):
     form_model = 'player'
     form_fields = ['gender',
                    'age',
                    'nationality',
-                   'email',
+                #    'email',
                    'education',
                    'study_major',
                    'course_financial',
@@ -112,8 +119,10 @@ page_sequence = [
     SelfReflection1,
     SelfReflection2,
     SelfReflection3,
+    SelfReflection4,
     FinQuiz,
     Q,
     Results,
+    Debriefing,
     FinalForProlific
 ]

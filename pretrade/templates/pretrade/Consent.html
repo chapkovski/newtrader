@@ -1,0 +1,100 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+Consent form
+{% endblock %}
+
+{% block content %}
+
+<div class="card my-3 shadow-lg p-3 mb-3 bg-white rounded">
+
+
+    <div class="card-body">
+
+        <div class="card-text">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Dear Participant,</li>
+                <li class="list-group-item">
+                    You are invited to take part in an economic experiment, which is part of a project studying retail
+                    trading platforms funded by the Canadian Securities Institute and the Social Sciences and Humanities
+                    Research Council of Canada. You will be asked to trade assets on a virtual financial market.
+                </li>
+                <li class="list-group-item">
+                    Your participation in this study is entirely voluntary. Participation presents no <b>known</b> risks
+                    or
+                    burdens. You will receive a compensation of GBP 10/hour for participating in the study, as well as a
+                    monetary compensation proportional to the profits you earn both in the process of trading and for
+                    the completion of the non-trading task. You can withdraw from the study at any time without penalty.
+                    However, if you withdraw before the end of the experiment the compensation will be forfeit, as per
+                    Prolific’s rules.
+                </li>
+                <li class="list-group-item">
+                    Please be assured that all data generated during this study will remain confidential. You will be
+                    asked to provide some basic demographic information about yourself, but none of this information
+                    will in any way be used to personally identify you and no personal information will appear in any
+                    published study.
+                </li>
+                <li class="list-group-item">
+                    Your decision to participate in this study will remain completely confidential and only the
+                    researchers will have access to any of the individual data. We do not collect any data that can
+                    personally identify you. Any demographics data will be stored electronically on a web-based server
+                    until it is downloaded for the purpose of analysis. This server will only be accessible by the
+                    research team using a secure password. Data will be retained in de-identifiable format for 7 years
+                    and discarded afterwards. At that time, electronic files will be deleted and written files will be
+                    shredded. This is a standard practice for the American Psychological Association. As required by the
+                    guidelines of American Economic Association, during the publication process the data might be shared
+                    with other investigators for re-analysis. However, to ensure security and confidentiality of the
+                    data files only details of the computations sufficient to permit replication might be shared.
+                </li>
+                <li class="list-group-item">
+                    This study has been reviewed by the Research Ethics Boards at the University of Toronto. If you are
+                    interested, you can receive a summary of the research study by emailing the primary researchers,
+                    Prof. Marius Zoican at <a
+                    href="mailto:marius.zoican@utoronto.ca">marius.zoican@utoronto.ca</a>, Prof. Mariana Khapko at <a href="mailto:mariana.khapko@utoronto.ca">mariana.khapko@utoronto.ca</a>
+                    and Dr. Philipp Chapkovski at <a href="mailto:chapkovski@uni-bonn.de">chapkovski@uni-bonn.de</a>.
+                </li>
+                <li class="list-group-item font-weight-bold">
+                    The research study you are participating in may be reviewed for quality assurance to make sure that
+                    the required laws and guidelines are followed. If chosen, (a) representative(s) of the Human
+                    Research Ethics Program (HREP) may access study-related data and/or consent materials as part of the
+                    review. All information accessed by the HREP will be upheld to the same level of confidentiality
+                    that has been stated by the research team.
+                </li>
+                <li class="list-group-item">
+                    If you wish to obtain further information regarding your rights as a participant you may contact the
+                    University of Toronto Office of Research Ethics at <a
+                        href="mailto:ethics.review@utoronto.ca">ethics.review@utoronto.ca</a> or (416) 946-3273.
+
+                    You may also contact Prof. Marius Zoican (<a
+                        href="mailto:marius.zoican@utoronto.ca">marius.zoican@utoronto.ca</a>), Mariana Khapko
+                    (<a href="mailto:mariana.khapko@utoronto.ca">mariana.khapko@utoronto.ca</a>) and Dr. Philipp
+                    Chapkovski (<a href="mailto:chapkovski@uni-bonn.de">chapkovski@uni-bonn.de</a>) for further
+                    information or to obtain answers to any questions about this research.
+
+
+                </li>
+                <li class="list-group-item">
+                    I agree to participate in research being conducted by Prof. Marius Zoican of the Department of
+                    Management at University of Toronto Mississauga, Prof. Mariana Khapko of the Department of
+                    Management at University of Toronto Scarborough and Dr. Philipp Chapkovski of the Institute for
+                    Applied Microeconomics at University of Bonn. I understand that I can withdraw my consent to
+                    participate at any time and by giving consent I am not giving up any of my legal rights.
+                </li>
+                <li class="list-group-item text-danger">
+                    {% formfields %}
+                </li>
+
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+{% next_button %}
+
+{% endblock %}

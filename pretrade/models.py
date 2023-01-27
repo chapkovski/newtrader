@@ -20,14 +20,10 @@ Instructions, comprehension check for trader
 """
 
 
-
 class Constants(BaseConstants):
     name_in_url = 'pretrade'
     players_per_group = None
     num_rounds = 1
-
-
-
 
 
 class Subsession(BaseSubsession):
@@ -39,6 +35,10 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    consent = models.BooleanField(widget=widgets.CheckboxInput,
+                                  label=' By checking this box, I am agreeing to take part in this research study.')
+    knowledge = models.IntegerField()
+
     cq1 = models.StringField(
         label="The stock price just went up. At the next price update,",
         choices=["The stock price is likelier to go up again",

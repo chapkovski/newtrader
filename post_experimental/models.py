@@ -84,6 +84,11 @@ class Player(BasePlayer):
         choices=['Design 1', 'Design 2'],
         widget=widgets.RadioSelectHorizontal
     )
+    sr_better_have_option = models.StringField(
+        label='If you could trade again, would you prefer to: be given an option to choose between Design #1 and Design #2 or not?',
+        choices=['Yes', 'No'],
+        widget=widgets.RadioSelectHorizontal
+    )
     sr_notifications = models.IntegerField(
         label='Price notifications',
         choices=range(1,6),
