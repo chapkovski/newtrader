@@ -24,7 +24,8 @@ Survey
 <script>
     const json = {
         questions: [
-            {
+            {displayMode:'buttons',
+            displayRateDescriptionsAsExtremeItems:true,
                 "type": "rating",
                 "name": "knowledge",
                 isRequired:true,
@@ -32,14 +33,14 @@ Survey
                     "default": "On a scale from zero to ten, where zero is not at all knowledgeable about personal finance and ten is very knowledgeable about personal finance, what number would you be on the scale?",
 
                 },
-                "rateMax": 0,
+                "rateMin": 0,
                 "rateMax": 10,
                 "maxRateDescription": {
-                    "default": "Not at all knowledgeable",
+                    "default": "10",
 
                 },
                 "minRateDescription": {
-                    "default": "Very knowledgeable",
+                    "default": "0",
 
                 }
             }
