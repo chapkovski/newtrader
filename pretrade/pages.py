@@ -33,8 +33,8 @@ class KnowledgeP(GeneralPage):
     
 
 page_sequence = [
-    # Consent,
-    # Instructions,
+    Consent,
+    Instructions,
     # CQPage,
     KnowledgeP,
 ]

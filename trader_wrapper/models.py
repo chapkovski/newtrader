@@ -22,15 +22,18 @@ author = 'Philipp Chapkovski, WZB'
 doc = """
 Backend for trading platform 
 """
-conv = lambda x: [float(i.strip()) for i in x.split(',')]
+def conv(x): return [float(i.strip()) for i in x.split(',')]
+
 
 price_correspondence = (
-('prices_markov_train_1.csv','prices_markov_train_2.csv'),
-('prices_markov_main_1.csv','prices_markov_main_2.csv'),
-('prices_markov_main_3.csv','prices_markov_main_4.csv'),
-('prices_markov_main_5.csv','prices_markov_main_6.csv'),
-('prices_markov_main_7.csv','prices_markov_main_8.csv'),
+    'prices_markov_train_1.csv',
+    'prices_markov_main_1.csv',
+    'prices_markov_main_2.csv',
+    'prices_markov_main_3.csv',
+    'prices_markov_main_4.csv',
 )
+
+
 class Constants(BaseConstants):
     name_in_url = 'trader_wrapper'
     players_per_group = None
@@ -41,6 +44,7 @@ class Constants(BaseConstants):
     with open(r'./data/params.yaml') as file:
         blocks = yaml.load(file, Loader=yaml.FullLoader)
 
+
 def flatten(t):
     return [item for sublist in t for item in sublist]
 
@@ -49,36 +53,31 @@ class Subsession(BaseSubsession):
     tick_frequency = models.FloatField()
     max_length = models.FloatField()
     stock_prices_A = models.LongStringField()
-    stock_prices_B = models.LongStringField()
 
     def get_stock_prices_A(self):
         return json.loads(self.stock_prices_A)
 
-    def get_stock_prices_B(self):
-        return json.loads(self.stock_prices_B)
-
     def creating_session(self):
         awards_at = conv(self.session.config.get('awards_at', ''))
-        assert len(awards_at) == 5, 'Something is wrong with awards_at settings. Check again'
+        assert len(
+            awards_at) == 5, 'Something is wrong with awards_at settings. Check again'
         self.session.vars['awards_at'] = awards_at
 
-        stock_price_path_A_f, stock_price_path_B_f = price_correspondence[self.round_number-1]
-        pathfinder = lambda  x: f'data/{x}'
+        stock_price_path_A_f = price_correspondence[self.round_number-1]
+        def pathfinder(x): return f'data/{x}'
         with open(pathfinder(stock_price_path_A_f), newline='') as csvfile:
             stockreader = csv.DictReader(csvfile, delimiter=',')
             stockreader = [float(i.get('stock')) for i in stockreader]
             self.stock_prices_A = json.dumps(stockreader)
-        with open(pathfinder(stock_price_path_B_f), newline='') as csvfile:
-            stockreader = csv.DictReader(csvfile, delimiter=',')
-            stockreader = [float(i.get('stock')) for i in stockreader]
-            self.stock_prices_B = json.dumps(stockreader)
 
         if self.round_number == 1:
             params = {}
             params['game_rounds'] = Constants.num_rounds
-            params['exchange_rate'] = self.session.config.get('real_world_currency_per_point')
+            params['exchange_rate'] = self.session.config.get(
+                'real_world_currency_per_point')
             max_tick_frequency = Constants.tick_frequency
-            params['round_length'] = Constants.tick_frequency * Constants.tick_num
+            params['round_length'] = Constants.tick_frequency * \
+                Constants.tick_num
             training_rounds = [1]
 
             self.session.vars['training_rounds'] = training_rounds
@@ -87,7 +86,8 @@ class Subsession(BaseSubsession):
             tcycle = cycle([-1, 1])
             for p in self.session.get_participants():
                 p.vars['treatments'] = treatment_order[::next(tcycle)]
-                p.vars['payable_round'] = random.randint(2, Constants.num_rounds)
+                p.vars['payable_round'] = random.randint(
+                    2, Constants.num_rounds)
 
         self.tick_frequency = Constants.tick_frequency
         for p in self.get_players():
@@ -101,6 +101,7 @@ class Subsession(BaseSubsession):
                 block = Constants.blocks[_id]
                 p.gamified = block.get('gamified')[self.round_number-2]
                 p.salient = block.get('salient')[self.round_number-2]
+
 
 class Group(BaseGroup):
     pass
@@ -121,17 +122,7 @@ class Player(BasePlayer):
     end_time = djmodels.DateTimeField(null=True, blank=True)
     payable_round = models.BooleanField()
     day_params = models.LongStringField()
-    stock_up_A = models.IntegerField()
-    stock_up_B = models.IntegerField()
-    confidence_A = models.IntegerField()
-    confidence_B = models.IntegerField()
 
-    def predictions_send(self, data, timestamp):
-        print('predictions_send registered', data)
-        self.stock_up_A = data.get('stockUpA')
-        self.stock_up_B = data.get('stockUpB')
-        self.confidence_A = data.get('confidenceA')
-        self.confidence_B = data.get('confidenceB')
 
     def register_event(self, data):
         timestamp = timezone.now()
@@ -167,7 +158,8 @@ class Event(djmodels.Model):
         get_latest_by = 'timestamp'
 
     part_number = models.IntegerField()
-    owner = djmodels.ForeignKey(to=Player, on_delete=djmodels.CASCADE, related_name='events')
+    owner = djmodels.ForeignKey(
+        to=Player, on_delete=djmodels.CASCADE, related_name='events')
     name = models.StringField()
     timestamp = djmodels.DateTimeField(null=True, blank=True)
     body = models.StringField()
