@@ -17,7 +17,7 @@ from itertools import cycle
 import json
 import csv
 import yaml
-author = 'Philipp Chapkovski, WZB'
+author = 'Philipp Chapkovski, University of Bonn'
 
 doc = """
 Backend for trading platform 
@@ -43,6 +43,24 @@ class Constants(BaseConstants):
     tick_num = 10
     with open(r'./data/params.yaml') as file:
         blocks = yaml.load(file, Loader=yaml.FullLoader)
+    num_blocks=len(blocks)
+    def price_reader(stub, i):
+        pathfinder = lambda x: f'data/{x}'
+        price_path = pathfinder(f'{stub}{i}.csv')
+        with open(price_path, newline='') as csvfile:
+            stockreader = csv.DictReader(csvfile, delimiter=',')
+            stockreader = [float(i.get('stock')) for i in stockreader]
+            return stockreader
+    prices_normal=[]
+    prices_martingale=[]
+    
+    for i in range (5):
+        prices_normal.append(price_reader('prices_markov_main_',i))
+        prices_martingale.append(price_reader('prices_markov_robust_',i))
+
+        
+    
+
 
 
 def flatten(t):
@@ -52,10 +70,8 @@ def flatten(t):
 class Subsession(BaseSubsession):
     tick_frequency = models.FloatField()
     max_length = models.FloatField()
-    stock_prices_A = models.LongStringField()
+    
 
-    def get_stock_prices_A(self):
-        return json.loads(self.stock_prices_A)
 
     def creating_session(self):
         awards_at = conv(self.session.config.get('awards_at', ''))
@@ -63,12 +79,6 @@ class Subsession(BaseSubsession):
             awards_at) == 5, 'Something is wrong with awards_at settings. Check again'
         self.session.vars['awards_at'] = awards_at
 
-        stock_price_path_A_f = price_correspondence[self.round_number-1]
-        def pathfinder(x): return f'data/{x}'
-        with open(pathfinder(stock_price_path_A_f), newline='') as csvfile:
-            stockreader = csv.DictReader(csvfile, delimiter=',')
-            stockreader = [float(i.get('stock')) for i in stockreader]
-            self.stock_prices_A = json.dumps(stockreader)
 
         if self.round_number == 1:
             params = {}
@@ -79,9 +89,7 @@ class Subsession(BaseSubsession):
             params['round_length'] = Constants.tick_frequency * \
                 Constants.tick_num
             training_rounds = [1]
-
             self.session.vars['training_rounds'] = training_rounds
-
             treatment_order = [True] + [False]
             tcycle = cycle([-1, 1])
             for p in self.session.get_participants():
@@ -91,16 +99,25 @@ class Subsession(BaseSubsession):
 
         self.tick_frequency = Constants.tick_frequency
         for p in self.get_players():
+            _id = (p.id_in_subsession-1) % Constants.num_blocks
+            block = Constants.blocks[_id]
+            martingale =block.get('martingale')
+            p.treatment_name = block.get('name')
+            if martingale:
+                price=Constants.prices_martingale[self.round_number-1]
+            else:
+                price=Constants.prices_normal[self.round_number-1]
+            p.stock_prices_A = json.dumps(price)
             p.payable_round = p.participant.vars['payable_round'] == p.round_number
             if self.round_number == 1:
                 p.training = True
                 p.gamified = False
-                p.salient = False
+                p.notifications = False
             else:
-                _id = (p.id_in_subsession-1) % 4
-                block = Constants.blocks[_id]
                 p.gamified = block.get('gamified')[self.round_number-2]
-                p.salient = block.get('salient')[self.round_number-2]
+                p.notifications = block.get('notifications')[self.round_number-2]
+                
+                
 
 
 class Group(BaseGroup):
@@ -108,15 +125,20 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    def get_stock_prices_A(self):
+        return json.loads(self.stock_prices_A)
+
     """In production we may not need theses two fields, but it is still useful to have them
     as natural limits after which the player should proceed to the next trading day.
     """
+    stock_prices_A = models.LongStringField()
 
     def formatted_prob(self):
         return f"{self.crash_probability:.0%}"
     intermediary_payoff = models.IntegerField()
-    salient = models.BooleanField()
+    notifications = models.BooleanField()
     gamified = models.BooleanField()
+    treatment_name =models.StringField()
     training = models.BooleanField()
     start_time = djmodels.DateTimeField(null=True, blank=True)
     end_time = djmodels.DateTimeField(null=True, blank=True)

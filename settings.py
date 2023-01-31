@@ -2,7 +2,9 @@ from os import environ
 import os
 import pandas as pd
 EXTENSION_APPS=['trader_wrapper']
-
+import yaml
+with open(r'./data/params.yaml') as file:
+    blocks = yaml.load(file, Loader=yaml.FullLoader)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TIME_ZONE = 'UTC'
@@ -12,15 +14,7 @@ default_app_seq = [
     'post_experimental'
 
 ]
-SESSION_CONFIGS = [
-
-    dict(
-        name='traderonlhy',
-        display_name="trader ONLY - within-subject",
-        num_demo_participants=4,
-        app_sequence=['trader_wrapper'],
-        gamified=True,
-    ),
+SESSION_CONFIGS = [  
 
     dict(
         name='post',
@@ -30,10 +24,16 @@ SESSION_CONFIGS = [
 
     ),
     dict(
-        name='full_baseline',
-        display_name="FULL STUDY - within-subject",
-        num_demo_participants=2,
+        name='full',
+        display_name="FULL STUDY",
+        num_demo_participants=len(blocks),
         app_sequence=default_app_seq,
+    ),
+    dict(
+        name='trader',
+        display_name="trader only",
+        num_demo_participants=len(blocks),
+        app_sequence=[ 'trader_wrapper',],
     ),
 
 ]
