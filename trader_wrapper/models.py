@@ -8,7 +8,7 @@ from otree.api import (
     Currency as c,
     currency_range,
 )
-
+from pprint import pprint
 from otree.models import Session
 import random
 from django.db import models as djmodels
@@ -25,15 +25,6 @@ Backend for trading platform
 def conv(x): return [float(i.strip()) for i in x.split(',')]
 
 
-price_correspondence = (
-    'prices_markov_train_1.csv',
-    'prices_markov_main_1.csv',
-    'prices_markov_main_2.csv',
-    'prices_markov_main_3.csv',
-    'prices_markov_main_4.csv',
-)
-
-
 class Constants(BaseConstants):
     name_in_url = 'trader_wrapper'
     players_per_group = None
@@ -41,26 +32,32 @@ class Constants(BaseConstants):
     num_rounds = 5
     tick_frequency = 6
     tick_num = 10
-    with open(r'./data/params.yaml') as file:
+    with open(r'./data/blocks.yaml') as file:
         blocks = yaml.load(file, Loader=yaml.FullLoader)
-    num_blocks=len(blocks)
+    with open(r'./data/treatments.yaml') as file:
+        treatments = yaml.load(file, Loader=yaml.FullLoader)
+    num_blocks = len(blocks)
+    num_treatments = len(treatments)
+    blocked_treatments = []
+    for b in blocks:
+        for t in treatments:
+            bc = b.copy()
+            bc.update(t)
+            blocked_treatments.append(bc)
+    pprint(blocked_treatments)
     def price_reader(stub, i):
-        pathfinder = lambda x: f'data/{x}'
+        def pathfinder(x): return f'data/{x}'
         price_path = pathfinder(f'{stub}{i}.csv')
         with open(price_path, newline='') as csvfile:
             stockreader = csv.DictReader(csvfile, delimiter=',')
             stockreader = [float(i.get('stock')) for i in stockreader]
             return stockreader
-    prices_normal=[]
-    prices_martingale=[]
-    
-    for i in range (5):
-        prices_normal.append(price_reader('prices_markov_main_',i))
-        prices_martingale.append(price_reader('prices_markov_robust_',i))
+    prices_normal = []
+    prices_martingale = []
 
-        
-    
-
+    for i in range(5):
+        prices_normal.append(price_reader('prices_markov_main_', i))
+        prices_martingale.append(price_reader('prices_markov_robust_', i))
 
 
 def flatten(t):
@@ -70,15 +67,12 @@ def flatten(t):
 class Subsession(BaseSubsession):
     tick_frequency = models.FloatField()
     max_length = models.FloatField()
-    
-
 
     def creating_session(self):
         awards_at = conv(self.session.config.get('awards_at', ''))
         assert len(
             awards_at) == 5, 'Something is wrong with awards_at settings. Check again'
         self.session.vars['awards_at'] = awards_at
-
 
         if self.round_number == 1:
             params = {}
@@ -99,25 +93,29 @@ class Subsession(BaseSubsession):
 
         self.tick_frequency = Constants.tick_frequency
         for p in self.get_players():
-            _id = (p.id_in_subsession-1) % Constants.num_blocks
-            block = Constants.blocks[_id]
-            martingale =block.get('martingale')
-            p.treatment_name = block.get('name')
+            _id = (p.id_in_subsession-1) % len(Constants.blocked_treatments)
+            block = Constants.blocked_treatments[_id]
+            martingale = block.get('martingale')
+            p.treatment_name = block.get('treatment_name')
+            p.block_name = block.get('block_name')
             if martingale:
-                price=Constants.prices_martingale[self.round_number-1]
+                price = Constants.prices_martingale[self.round_number-1]
             else:
-                price=Constants.prices_normal[self.round_number-1]
+                price = Constants.prices_normal[self.round_number-1]
             p.stock_prices_A = json.dumps(price)
             p.payable_round = p.participant.vars['payable_round'] == p.round_number
             if self.round_number == 1:
                 p.training = True
                 p.gamified = False
+                p.salient = False
+                p.hedonic = False
                 p.notifications = False
             else:
+                p.training = False
                 p.gamified = block.get('gamified')[self.round_number-2]
-                p.notifications = block.get('notifications')[self.round_number-2]
-                
-                
+                p.salient = block.get('salient')[self.round_number-2]
+                p.notifications = block.get('notifications')
+                p.hedonic = block.get('hedonic')
 
 
 class Group(BaseGroup):
@@ -136,15 +134,19 @@ class Player(BasePlayer):
     def formatted_prob(self):
         return f"{self.crash_probability:.0%}"
     intermediary_payoff = models.IntegerField()
-    notifications = models.BooleanField()
     gamified = models.BooleanField()
-    treatment_name =models.StringField()
+    salient = models.BooleanField()
+    notifications = models.BooleanField()
+    hedonic = models.BooleanField()
+    treatment = models.StringField()
+    block = models.StringField()
     training = models.BooleanField()
     start_time = djmodels.DateTimeField(null=True, blank=True)
     end_time = djmodels.DateTimeField(null=True, blank=True)
     payable_round = models.BooleanField()
     day_params = models.LongStringField()
-
+    block_name = models.StringField()
+    treatment_name = models.StringField()
 
     def register_event(self, data):
         timestamp = timezone.now()

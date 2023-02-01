@@ -1,0 +1,24 @@
+- treatment_name: Session I - Hedonic, no price
+  hedonic: true
+  notifications: false
+  martingale: false
+- treatment_name: Session I - Hedonic, no price
+  hedonic: true
+  notifications: false
+  martingale: false
+- treatment_name: Session II - non-hedonic, price
+  hedonic: false
+  notifications: true
+  martingale: false
+- treatment_name: Session II - non-hedonic, price
+  hedonic: false
+  notifications: true
+  martingale: false
+- treatment_name: Session III - full gamification
+  hedonic: true
+  notifications: true
+  martingale: false
+- treatment_name: Session IV - price only+martingale
+  hedonic: false
+  notifications: true
+  martingale: true

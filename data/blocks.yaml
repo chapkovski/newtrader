@@ -1,0 +1,12 @@
+- block_name: block 1 (G first)
+  gamified: [true, true, false, false]
+  salient: [false, true, false, true]
+- block_name: block 2 (G first)
+  gamified: [true, true, false, false]
+  salient: [true, false, true, false]
+- block_name: block 3 (G second)
+  gamified: [false, false, true, true]
+  salient: [false, true, false, true]
+- block_name: block 4 (G second)
+  gamified: [false, false, true, true]
+  salient: [true, false, true, false]

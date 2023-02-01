@@ -3,8 +3,11 @@ import os
 import pandas as pd
 EXTENSION_APPS=['trader_wrapper']
 import yaml
-with open(r'./data/params.yaml') as file:
+with open(r'./data/blocks.yaml') as file:
     blocks = yaml.load(file, Loader=yaml.FullLoader)
+with open(r'./data/treatments.yaml') as file:
+    treatments = yaml.load(file, Loader=yaml.FullLoader)
+num_blocked_treatments = len(blocks)*len(treatments)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TIME_ZONE = 'UTC'
@@ -26,13 +29,13 @@ SESSION_CONFIGS = [
     dict(
         name='full',
         display_name="FULL STUDY",
-        num_demo_participants=len(blocks),
+        num_demo_participants=num_blocked_treatments,
         app_sequence=default_app_seq,
     ),
     dict(
         name='trader',
         display_name="trader only",
-        num_demo_participants=len(blocks),
+        num_demo_participants=num_blocked_treatments,
         app_sequence=[ 'trader_wrapper',],
     ),
 

@@ -8,64 +8,57 @@
 
 {% block body_main %}
 
-    <link rel="prefetch" href="{% static 'img/bronze.gif' %}"/>
-    <link rel="prefetch" href="{% static 'img/silver.gif' %}"/>
-    <link rel="prefetch" href="{% static 'img/gold.gif' %}"/>
-    <link rel="prefetch" href="{% static 'img/platinum.gif' %}"/>
-    <link rel="prefetch" href="{% static 'img/diamond.gif' %}"/>
+<link rel="prefetch" href="{% static 'img/bronze.gif' %}" />
+<link rel="prefetch" href="{% static 'img/silver.gif' %}" />
+<link rel="prefetch" href="{% static 'img/gold.gif' %}" />
+<link rel="prefetch" href="{% static 'img/platinum.gif' %}" />
+<link rel="prefetch" href="{% static 'img/diamond.gif' %}" />
 
-    <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
-    />
-    <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
-    />
-    <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-    <link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
-    <link rel="stylesheet" href="{% static 'global/default.css' %}">
-    <link rel="stylesheet" href="{% static 'front/css/main.css' %}">
-    <form action='' method="post" role="form" id="form" autocomplete="off">
-        {% csrf_token %}
-        <div id="instructions" class="d-none">
-            {% include 'pretrade/includes/instructions.html' %}
-        </div>
-        <script>
-            {# gifs paths           #}
-            window.snackAlertN=3;
-            window.bronzeGifPath= '{% static 'img/bronze.gif' %}';
-            window.silverGifPath="{% static 'img/silver.gif' %}";
-            window.goldGifPath="{% static 'img/gold.gif' %}";
-            window.platinumGifPath="{% static 'img/platinum.gif' %}";
-            window.diamondGifPath="{% static 'img/diamond.gif' %}";
-            {# end of gifspaths           #}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="{% static 'front/css/chunk-vendors.css' %}">
+<link rel="stylesheet" href="{% static 'global/default.css' %}">
+<link rel="stylesheet" href="{% static 'front/css/main.css' %}">
+<form action='' method="post" role="form" id="form" autocomplete="off">
+    {% csrf_token %}
+    <div id="instructions" class="d-none">
+        {% include 'pretrade/includes/instructions.html' %}
+    </div>
+    <script>
+        
+        window.snackAlertN = 3;
+        window.bronzeGifPath = '{% static 'img / bronze.gif' %}';
+        window.silverGifPath = "{% static 'img/silver.gif' %}";
+        window.goldGifPath = "{% static 'img/gold.gif' %}";
+        window.platinumGifPath = "{% static 'img/platinum.gif' %}";
+        window.diamondGifPath = "{% static 'img/diamond.gif' %}";
+        
 
-            window.round_number={{ view.round_number|json }};
-            window.num_rounds={{ Constants.num_rounds|json }};
-            window.counter=0;
-            window.initialPricesA = {{ player.get_stock_prices_A|json }};
-            window.tickFrequency = {{ session.config.tick_frequency|json }};
-            window.predictionAt = {{ prediction_at|json }};
-            window.tradingAt = {{ trading_at|json }};
-            window.awardsAt={{ session.vars.awards_at|json }};
-            window.gamified = {{ player.gamified|json }};
-            window.notifications = {{player.notifications|json}}
-            window.training ={{ player.training|json }};
-            window.socket_path = {{ view.live_url|json }};
+        window.round_number = {{ view.round_number | json }};
+        window.num_rounds = {{ Constants.num_rounds | json }};
+        window.counter = 0;
+        window.initialPricesA = {{ player.get_stock_prices_A | json }};
+        window.tickFrequency = {{ session.config.tick_frequency | json }};
+        window.predictionAt = {{ prediction_at | json }};
+        window.tradingAt = {{ trading_at | json }};
+        window.awardsAt = {{ session.vars.awards_at | json }};
+        window.gamified = {{ player.gamified | json }};
+        window.notifications = {{ player.notifications | json }}
+        window.salient = {{ player.salient | json }}
+        window.hedonic = {{ player.hedonic | json }}
+        window.training = {{ player.training | json }};
+        window.socket_path = {{ view.live_url | json }};
+        
 
 
 
 
-
-        </script>
-        <div id="app"></div>
-        <script type="text/javascript" src="{% static 'front/js/chunk-vendors.js' %}"></script>
-        <script type="text/javascript" src="{% static 'front/js/main.js' %}"></script>
-    </form>
+    </script>
+    <div id="app"></div>
+    <script type="text/javascript" src="{% static 'front/js/chunk-vendors.js' %}"></script>
+    <script type="text/javascript" src="{% static 'front/js/main.js' %}"></script>
+</form>
 
 {% endblock %}
 
