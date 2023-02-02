@@ -44,7 +44,7 @@ class Constants(BaseConstants):
             bc = b.copy()
             bc.update(t)
             blocked_treatments.append(bc)
-    pprint(blocked_treatments)
+    
     def price_reader(stub, i):
         def pathfinder(x): return f'data/{x}'
         price_path = pathfinder(f'{stub}{i}.csv')
@@ -97,6 +97,8 @@ class Subsession(BaseSubsession):
             block = Constants.blocked_treatments[_id]
             martingale = block.get('martingale')
             p.treatment_name = block.get('treatment_name')
+            p.inner_treatment_name = block.get('inner_name')
+            p.participant.vars['treatment'] = block.get('inner_name')
             p.block_name = block.get('block_name')
             if martingale:
                 price = Constants.prices_martingale[self.round_number-1]
@@ -123,6 +125,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    
     def get_stock_prices_A(self):
         return json.loads(self.stock_prices_A)
 
@@ -147,7 +150,7 @@ class Player(BasePlayer):
     day_params = models.LongStringField()
     block_name = models.StringField()
     treatment_name = models.StringField()
-
+    inner_treatment_name = models.StringField()
     def register_event(self, data):
         timestamp = timezone.now()
         action = data.get('action', '')

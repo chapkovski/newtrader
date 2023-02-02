@@ -35,6 +35,10 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
+    treatment = models.StringField()
+
+    def start(self):
+        self.treatment = self.participant.vars.get('treatment')
     consent = models.BooleanField(widget=widgets.CheckboxInput,
                                   label=' By checking this box, I am agreeing to take part in this research study.')
     knowledge = models.IntegerField()

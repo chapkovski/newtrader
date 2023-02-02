@@ -1,24 +1,30 @@
-- treatment_name: Session I - Hedonic, no price
+- inner_name: s1
+  treatment_name: Session I - Hedonic, no price
   hedonic: true
   notifications: false
   martingale: false
-- treatment_name: Session I - Hedonic, no price
+- inner_name: s1
+  treatment_name: Session I - Hedonic, no price
   hedonic: true
   notifications: false
   martingale: false
-- treatment_name: Session II - non-hedonic, price
+- inner_name: s2
+  treatment_name: Session II - non-hedonic, price
   hedonic: false
   notifications: true
   martingale: false
-- treatment_name: Session II - non-hedonic, price
+- inner_name: s2
+  treatment_name: Session II - non-hedonic, price
   hedonic: false
   notifications: true
   martingale: false
-- treatment_name: Session III - full gamification
+- inner_name: s3
+  treatment_name: Session III - full gamification
   hedonic: true
   notifications: true
   martingale: false
-- treatment_name: Session IV - price only+martingale
+- inner_name: s4
+  treatment_name: Session IV - price only+martingale
   hedonic: false
   notifications: true
   martingale: true
