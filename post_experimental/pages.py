@@ -48,7 +48,13 @@ class SelfReflection3(Page):
 
 class SelfReflection4(Page):
     form_model = 'player'
-    form_fields = ['sr_notifications', 'sr_badges', 'sr_confetti']
+    def get_form_fields(self):
+        fs = []
+        if self.player.notifications:
+            fs.append('sr_notifications')
+        if self.player.hedonic:
+            fs.extend(['sr_badges', 'sr_confetti'])
+        return fs
 
 
 class FinQuiz(Page):

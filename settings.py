@@ -22,7 +22,7 @@ SESSION_CONFIGS = [
     dict(
         name='post',
         display_name="post-experimental (quiz, SES)",
-        num_demo_participants=2,
+        num_demo_participants=num_blocked_treatments,
         app_sequence=['post_experimental'],
 
     ),

@@ -8,6 +8,8 @@ from otree.api import (
     Currency as c,
     currency_range,
 )
+from trader_wrapper.models import Constants as TraderConstants
+
 import json
 from django.db import models as djmodels
 from django.db.models import F
@@ -66,12 +68,30 @@ class Subsession(BaseSubsession):
             URLValidator()(prolific_redirect_url)
             assert 'https://app.prolific.co/submissions' in prolific_redirect_url
 
-
+        # we assign here some stuff to track the treatment/block so we can adjust their questions
+        for p in self.get_players():
+            _id = (p.id_in_subsession-1) % len(TraderConstants.blocked_treatments)
+            block = TraderConstants.blocked_treatments[_id]
+            props = ['treatment_name',
+            'inner_name',
+            'block_name',
+            'hedonic',
+            'notifications'
+            ]
+            for i in props:
+                setattr(p, i, block.get(i))
+            
+            
 class Group(BaseGroup):
     pass
 
 
 class Player(BasePlayer):
+    block_name = models.StringField()
+    treatment_name = models.StringField()
+    inner_name = models.StringField()
+    notifications = models.BooleanField()
+    hedonic = models.BooleanField()
     # SELF REFLECTION BLOCK
     sr_prefs = models.StringField(
         label='If you could trade again, would you rather trade on a platform with Design #1 or Design #2?',

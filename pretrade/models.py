@@ -36,9 +36,11 @@ class Group(BaseGroup):
 
 class Player(BasePlayer):
     treatment = models.StringField()
+    martingale = models.BooleanField()
 
     def start(self):
         self.treatment = self.participant.vars.get('treatment')
+        self.martingale = self.participant.vars.get('martingale')
     consent = models.BooleanField(widget=widgets.CheckboxInput,
                                   label=' By checking this box, I am agreeing to take part in this research study.')
     knowledge = models.IntegerField()
@@ -90,8 +92,12 @@ class Player(BasePlayer):
     )
 
     def cq1_error_message(self, value):
-        if value != "The stock price is likelier to go up again":
-            return 'Wrong answer!'
+        if self.martingale:
+             if value != "The stock price is equally likely to go up or down":
+                return 'Wrong answer!'
+        else:
+            if value != "The stock price is likelier to go up again":
+                return 'Wrong answer!'
 
     def cq2_error_message(self, value):
         if value != "You can purchase it, but any negative cash balance is subtracted from your final earnings":

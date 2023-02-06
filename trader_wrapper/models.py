@@ -100,6 +100,7 @@ class Subsession(BaseSubsession):
             p.inner_treatment_name = block.get('inner_name')
             p.participant.vars['treatment'] = block.get('inner_name')
             p.block_name = block.get('block_name')
+            p.participant.vars['martingale']= martingale
             if martingale:
                 price = Constants.prices_martingale[self.round_number-1]
             else:
@@ -107,6 +108,7 @@ class Subsession(BaseSubsession):
             p.stock_prices_A = json.dumps(price)
             p.payable_round = p.participant.vars['payable_round'] == p.round_number
             if self.round_number == 1:
+                p.martingale=martingale
                 p.training = True
                 p.gamified = False
                 p.salient = False
@@ -114,6 +116,7 @@ class Subsession(BaseSubsession):
                 p.notifications = False
             else:
                 p.training = False
+                p.martingale=martingale
                 p.gamified = block.get('gamified')[self.round_number-2]
                 p.salient = block.get('salient')[self.round_number-2]
                 p.notifications = block.get('notifications')
@@ -125,7 +128,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    
+    martingale = models.BooleanField()
     def get_stock_prices_A(self):
         return json.loads(self.stock_prices_A)
 

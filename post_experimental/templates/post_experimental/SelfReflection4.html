@@ -6,35 +6,35 @@
 {% endblock %}
 
 {% block content %}
-    <div class="card">
+<div class="card">
     <div class="card-body text-center ">
         Please rate the following trading app features on a scale from 1 (strongly dislike) to 5 (strongly like)
     </div>
+</div>
+{% if player.notifications %}
+    <div class="card my-3">
+        <div class="card-body text-center ">
+            <img src="{% static 'img/price_notifications.png' %}" alt="" class="border-1 bordered border rounded img-fluid">
+        </div>
     </div>
-    <div class="card my-3">
-
-                <div class="card-body text-center ">
-                    <img src="{% static 'img/price_notifications.png' %}" alt="" class="border-1 bordered border rounded img-fluid"
-                          >
-                </div>
-            </div>
     {% formfield player.sr_notifications %}
+{% endif %}
+{% if player.hedonic %}
     <div class="card my-3">
 
-                <div class="card-body text-center ">
-                    <img src="{% static 'img/badges.png' %}" alt="" class="border-1 bordered border rounded img-fluid"
-                          >
-                </div>
-            </div>
+        <div class="card-body text-center ">
+            <img src="{% static 'img/badges.png' %}" alt="" class="border-1 bordered border rounded img-fluid">
+        </div>
+    </div>
     {% formfield player.sr_badges %}
     <div class="card my-3">
 
-                <div class="card-body text-center ">
-                    <img src="{% static 'img/confetti.png' %}" alt="" class="border-1 bordered border rounded img-fluid"
-                          >
-                </div>
-            </div>
+        <div class="card-body text-center ">
+            <img src="{% static 'img/confetti.png' %}" alt="" class="border-1 bordered border rounded img-fluid">
+        </div>
+    </div>
     {% formfield player.sr_confetti %}
-    {% next_button %}
+{% endif %}
+{% next_button %}
 
 {% endblock %}
