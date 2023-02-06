@@ -80,13 +80,13 @@ class Player(BasePlayer):
 
     )
     sr_better_decs = models.StringField(
-        label='If you can trade again, would you expect to make better decisions when the market looks as in Design #1 or #2?',
+        label='If you could trade again, would you expect to make better decisions when the market looks as in Design #1 or #2?',
         choices=['Design 1', 'Design 2'],
         widget=widgets.RadioSelectHorizontal
     )
     sr_better_have_option = models.StringField(
-        label='If you could trade again, would you prefer to: be given an option to choose between Design #1 and Design #2 or not?',
-        choices=['Yes', 'No'],
+        label='If you could trade again, would you prefer to be given an option between Design #1 and Design #2, or only trade on Design #1',
+        choices=['Have an option between Design #1 and Design #2,', 'Only trade on Design #1'],
         widget=widgets.RadioSelectHorizontal
     )
     sr_notifications = models.IntegerField(
