@@ -31,17 +31,21 @@ finq_formset = inlineformset_factory(parent_model=Player,
                                      form=FinQForm,
                                      )
 
-
-class SelfReflection1(Page):
+class GeneralSelfReflection(Page):
+    def vars_for_template(self):
+        return dict(
+            gamified=f'img/{self.player.inner_name}.png'
+        )
+class SelfReflection1(GeneralSelfReflection):
     form_model = 'player'
     form_fields = ['sr_prefs', ]
 
 
-class SelfReflection2(Page):
+class SelfReflection2(GeneralSelfReflection):
     form_model = 'player'
     form_fields = ['sr_better_decs', ]
 
-class SelfReflection3(Page):
+class SelfReflection3(GeneralSelfReflection):
     form_model = 'player'
     form_fields = ['sr_better_have_option', ]
 
