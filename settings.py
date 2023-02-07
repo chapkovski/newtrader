@@ -54,7 +54,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     prediction_at=30,
     trading_at=4,
     tick_frequency=5,
-    awards_at='10,15,20,25,30'
+    awards_at='10, 15, 20, 25, 30'
 )
 
 # ISO-639 code
