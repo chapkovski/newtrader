@@ -47,6 +47,7 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
+    training_round_name='Training round',
     real_world_currency_per_point=0,
     participation_fee=0.00, doc="",
     for_prolific=False,
