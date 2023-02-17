@@ -35,8 +35,8 @@
         window.diamondGifPath = "{% static 'img/diamond.gif' %}";
         
 
-        window.round_number = {{ view.round_number | json }};
-        window.num_rounds = {{ Constants.num_rounds | json }};
+        window.round_number = {{ subsession.corrected_round_number | json }};
+        window.num_rounds = {{ Constants.corrected_num_rounds | json }};
         window.counter = 0;
         window.initialPricesA = {{ player.get_stock_prices_A | json }};
         window.tickFrequency = {{ session.config.tick_frequency | json }};

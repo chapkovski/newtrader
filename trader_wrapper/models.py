@@ -30,6 +30,7 @@ class Constants(BaseConstants):
     players_per_group = None
     training_rounds = [1]
     num_rounds = 5
+    corrected_num_rounds = num_rounds-1
     tick_frequency = 6
     tick_num = 10
     with open(r'./data/blocks.yaml') as file:
@@ -67,8 +68,14 @@ def flatten(t):
 class Subsession(BaseSubsession):
     tick_frequency = models.FloatField()
     max_length = models.FloatField()
-
+    round_name = models.StringField()
+    corrected_round_number = models.IntegerField()
     def creating_session(self):
+        self.corrected_round_number = self.round_number-1
+        if self.round_number == 1:
+            self.round_name = self.session.config.get('training_round_name', '0')
+        else:
+            self.round_name = f'Round {self.corrected_round_number}'
         awards_at = conv(self.session.config.get('awards_at', ''))
         assert len(
             awards_at) == 5, 'Something is wrong with awards_at settings. Check again'

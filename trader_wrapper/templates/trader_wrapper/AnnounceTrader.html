@@ -2,14 +2,14 @@
 {% load otree static %}
 
 {% block title %}
-    Round {{ view.round_number }} out of {{ Constants.num_rounds }}
+    Round {{ subsession.corrected_round_number }} out of {{ Constants.corrected_num_rounds }}
 {% endblock %}
 
 {% block content %}
     <div class="card my-3">
     <div class="card-body">
         <div class="card-text lead">
-            <div>Round {{ view.round_number }} begins.</div>
+            <div>{{subsession.round_name}} begins.</div>
 
         </div>
     </div>
