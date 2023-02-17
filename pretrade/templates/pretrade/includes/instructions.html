@@ -1380,22 +1380,26 @@ minor-latin'>
         <p class=MsoNormal> Over the four rounds, you will trade on two different platforms, in random order. </span>
         </p>
 
-        <ol>
-            <li> A <b> contemporary </b> design including:
-                <ul>
-                    {% if participant.vars.treatment in 's1,s3' %}
-                    <li> Achievement badges for executing {{session.config.awards_at}} trades. A trade is recorded only if your
-                        position in any stock changes between two consecutive price updates. </li>
+        <ol class=MsoNormal>
+            <li  class=MsoNormal  style='mso-bidi-font-family:Calibri!important;mso-bidi-theme-font:minor-latin'> A <b> contemporary </b> design including:
+                <ul class=MsoNormal>
+                    <div class=MsoNormal style='mso-bidi-font-family:Calibri!important;mso-bidi-theme-font:minor-latin'>
+                        {% if participant.vars.treatment in 's1,s3' %}
+                        <li class=MsoNormal
+                        style='mso-bidi-font-family:Calibri!important;mso-bidi-theme-font:minor-latin'> Achievement badges for executing {{session.config.awards_at}} trades. A trade is recorded
+                            only if your
+                            position in any stock changes between two consecutive price updates. </li>
 
 
 
-                    <li> Updated color scheme and user experience </li>
-                    {% endif %}
-                    {% if participant.vars.treatment != 's1' %}
-                    <li> Notifications if the stock price moves up or down three times in a row.
+                        <li class=MsoNormal style='mso-bidi-font-family:Calibri!important;mso-bidi-theme-font:minor-latin'> Updated color scheme and user experience </li>
                         {% endif %}
+                        {% if participant.vars.treatment != 's1' %}
+                        <li  class=MsoNormal style='mso-bidi-font-family:Calibri!important;mso-bidi-theme-font:minor-latin'> Notifications if the stock price moves up or down three times in a row.
+                            {% endif %}
+                    </div>
                 </ul>
-            <li> A <b> traditional </b> trading up design that does not include the elements above.
+            <li class=MsoNormal style='mso-bidi-font-family:Calibri!important;mso-bidi-theme-font:minor-latin'> A <b> traditional </b> trading up design that does not include the elements above.
         </ol>
 
         <p class=MsoNormal><b><span style='mso-bidi-font-family:Calibri;mso-bidi-theme-font:
