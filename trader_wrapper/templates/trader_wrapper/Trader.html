@@ -41,6 +41,7 @@
         window.initialPricesA = {{ player.get_stock_prices_A | json }};
         window.tickFrequency = {{ session.config.tick_frequency | json }};
         window.predictionAt = {{ prediction_at | json }};
+        
         window.tradingAt = {{ trading_at | json }};
         window.awardsAt = {{ session.vars.awards_at | json }};
         window.gamified = {{ player.gamified | json }};
