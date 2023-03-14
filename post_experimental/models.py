@@ -165,7 +165,7 @@ class FinQ(djmodels.Model):
 def custom_export(players):
     session = players[0].session
 
-    player_fields = ['age', 'gender', 'income']
+    player_fields = ['age', 'gender', 'education']
 
     for q in FinQ.objects.filter(answer__isnull=False):
         yield [q.label,
