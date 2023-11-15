@@ -2,39 +2,36 @@
 # newtrader
 
 ## Overview
-"newtrader" is an oTree-based project developed to facilitate the data collection for the study "Trading Gamification and Investor Behavior" by Chapkovski, Khapko, and Zoican (2023). This study explores the impacts of gamification elements in trading platforms on investor behavior.
+"newtrader" is an oTree-based project developed for the study "Trading Gamification and Investor Behavior" by Chapkovski, Khapko, and Zoican (2023). This study investigates the effects of gamification in trading platforms on investor behavior. [Read the paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3971868)
 
 ## Repository Contents
-This repository contains various directories and files essential for the project's functioning, including:
-- `_static`: Static files used in the project.
-- `_templates`: HTML templates for global use.
-- `data`: Data scripts and related files.
-- `front`: Front-end components.
-- `post_experimental`: Files related to post-experimental procedures.
-- `pretrade`: Pre-trading setup and instructions.
-- `trader_wrapper`: Core trading functionalities.
+This repository, structured into three apps, includes:
+- `trader_wrapper`: A gamified platform for single traders.
+- `pretrade`: For displaying instructions and comprehension checks before the main program.
+- `post_experimental`: Launched post-main program for demographics and financial literacy quiz.
 
 ## Requirements
-To run this project, ensure you have the following installed:
-- Python 3.x
-- Other dependencies as listed in `requirements.txt` and `requirements_base.txt`.
+- Python < 3.9 (Due to limitations in otree3.4.0)
+- Dependencies in `requirements.txt`.
 
 ## Setup and Installation
 1. Clone this repository.
-2. Install the required dependencies using `pip install -r requirements.txt`.
-3. Follow the additional setup instructions (if any) in individual directories.
+2. Install dependencies: `pip install -r requirements.txt`.
 
 ## Usage
 To start the application:
-1. Navigate to the project directory.
-2. Run `python manage.py` to start the server.
-3. Access the application through the provided local server address.
+1. Run `otree devserver`.
+2. If first-time running, remove older files:
+   ```
+   rm -rf __temp_migrations
+   rm -rf db.sqlite3
+   ```
 
 ## Contributing
-Contributions to the "newtrader" project are welcome. Please refer to the contribution guidelines for more details.
+Contributions are welcome. Please refer to the contribution guidelines for more details.
 
 ## License
-This project is licensed under [appropriate license], allowing for its use and distribution according to the license terms.
+This project is licensed under [appropriate license], allowing use and distribution per license terms.
 
 ## Acknowledgements
-This project was created to support the research of Chapkovski, Khapko, and Zoican (2023). For more details about the research, refer to the paper: [Link to the paper]
+This project supports research by Chapkovski, Khapko, and Zoican (2023). For more information, [refer to the paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3971868).
