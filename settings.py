@@ -1,13 +1,15 @@
 from os import environ
 import os
 import pandas as pd
-EXTENSION_APPS=['trader_wrapper']
+
+EXTENSION_APPS = ['trader_wrapper']
 import yaml
+
 with open(r'./data/blocks.yaml') as file:
     blocks = yaml.load(file, Loader=yaml.FullLoader)
 with open(r'./data/treatments.yaml') as file:
     treatments = yaml.load(file, Loader=yaml.FullLoader)
-num_blocked_treatments = len(blocks)*len(treatments)
+num_blocked_treatments = len(blocks) * len(treatments)
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TIME_ZONE = 'UTC'
@@ -17,7 +19,7 @@ default_app_seq = [
     'post_experimental'
 
 ]
-SESSION_CONFIGS = [  
+SESSION_CONFIGS = [
 
     dict(
         name='post',
@@ -36,7 +38,7 @@ SESSION_CONFIGS = [
         name='trader',
         display_name="trader only",
         num_demo_participants=num_blocked_treatments,
-        app_sequence=[ 'trader_wrapper',],
+        app_sequence=['trader_wrapper', ],
     ),
 
 ]
@@ -47,15 +49,15 @@ SESSION_CONFIGS = [
 # e.g. self.session.config['participation_fee']
 
 SESSION_CONFIG_DEFAULTS = dict(
-    training_round_name='Training round',
-    real_world_currency_per_point=0,
-    participation_fee=0.00, doc="",
-    for_prolific=False,
-    prolific_redirect_url='http://www.lenta.ru',
-    prediction_at=30,
-    trading_at=4,
-    tick_frequency=5,
-    awards_at='10, 15, 20, 25, 30'
+    real_world_currency_per_point=0,  # exchange rate between real world currency and points
+    participation_fee=0.00, doc="",  # participation fee
+    training_round_name='Training round',  # name of the training round
+    for_prolific=False,  # is the experiment run on Prolific?
+    prolific_redirect_url='https://prolific.com/',  # URL to redirect to after the experiment is completed
+    prediction_at=30,  # tick number at which the prediction is made
+    trading_at=4,  # tick number at which trading starts
+    tick_frequency=5,  # number of seconds between ticks
+    awards_at='10, 15, 20, 25, 30'  # tick numbers at which awards are given
 )
 
 # ISO-639 code
@@ -86,5 +88,5 @@ COUNTRIES_FIRST = ['US', 'GB']
 COUNTRIES_FIRST_BREAK = '-------'
 COUNTRIES_FIRST_REPEAT = True
 
-POINTS_DECIMAL_PLACES=2
-REAL_WORLD_CURRENCY_DECIMAL_PLACES=2
+POINTS_DECIMAL_PLACES = 2
+REAL_WORLD_CURRENCY_DECIMAL_PLACES = 2
