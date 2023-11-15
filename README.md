@@ -11,7 +11,7 @@ This repository, structured into three apps, includes:
 - `post_experimental`: Launched post-main program for demographics and financial literacy quiz.
 
 ## Requirements
-- Python < 3.9 (Due to limitations in otree3.4.0)
+- Python < 3.9 (Due to limitations in otree 3.4.0)
 - Dependencies in `requirements.txt`.
 
 ## Setup and Installation
@@ -19,12 +19,12 @@ This repository, structured into three apps, includes:
 2. Install dependencies: `pip install -r requirements.txt`.
 
 ## Usage
-(Note: The following instructions are for macOS or other Linux-like systems.)
+
 1. Run:
    ```sh
    otree devserver
    ```
-2. If first-time running, remove older files:
+2. If first-time running, remove older files (Note: The following instructions are for macOS or other Linux-like systems.):
    ```sh
    rm -rf __temp_migrations
    rm -rf db.sqlite3
