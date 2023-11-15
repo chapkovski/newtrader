@@ -31,18 +31,41 @@ This repository, structured into three apps, includes:
    ```
 3. The launched server will be available at [localhost:8000](http://localhost:8000). To change the default port, run `otree devserver 1234`, and it will then be available at `localhost:1234`.
 
+
+## Game Configuration via settings.py
+
+The experiment's configuration is mostly defined in `settings.py` through `SESSION_CONFIGS` and `SESSION_CONFIG_DEFAULTS`.
+
+### SESSION_CONFIGS
+- `post`: For running the post-experimental survey with a financial quiz.
+- `full`: Runs the full set of apps (`pretrade`, `trader_wrapper`, `post_experimental`), encompassing the entire experiment.
+- `trader`: To test the trading platform (`trader_wrapper`) only.
+
+### SESSION_CONFIG_DEFAULTS
+Settings with their explanations:
+- `training_round_name`: Name of the training round.
+- `for_prolific`: Boolean to indicate if the experiment is run on Prolific.
+- `prolific_redirect_url`: URL for redirection back to Prolific after experiment completion.
+- `prediction_at`: Tick number at which predictions are made.
+- `trading_at`: Tick number when trading starts.
+- `tick_frequency`: Seconds between ticks.
+- `awards_at`: Tick numbers at which awards are given.
+
+
+## Additional Configuration Files
+This section includes descriptions of various configuration files used in the project:
+- `blocks.yaml`: Describes platform design parameters for each trading round.
+- `financial_quiz.yaml`: Contains the financial quiz.
+- `treatments.yaml`: Outlines differences in price generation and gamification between participants.
+- `prices_markov_main_*.csv` & `prices_markov_robust_*.csv`: Contain pregenerated prices based on Markov or martingale models, with indices corresponding to round numbers.
+
+
 ## Data
 In addition to the standard oTree data structure, the `trader_wrapper` app in this project includes an additional model to record every client-side event during trading sessions. The data model `Event` is defined as follows:
 
 ```python
 class Event(djmodels.Model):
-    class Meta:
-        ordering = ['timestamp']
-        get_latest_by = 'timestamp'
-
-    part_number = models.IntegerField()
-    owner = djmodels.ForeignKey(
-        to=Player, on_delete=djmodels.CASCADE, related_name='events')
+    owner = djmodels.ForeignKey(to=Player, on_delete=djmodels.CASCADE, related_name='events')
     name = models.StringField()
     timestamp = djmodels.DateTimeField(null=True, blank=True)
     body = models.StringField()
@@ -55,12 +78,6 @@ This model captures details such as the type of event (e.g., GAME_STARTS, awardF
 
 All this data can be downloaded in CSV format via the `Data -> Third-party data export -> Events export` option.
 
-## Configuration Files
-This section includes descriptions of various configuration files used in the project:
-- `blocks.yaml`: Describes platform design parameters for each trading round.
-- `financial_quiz.yaml`: Contains the financial quiz.
-- `treatments.yaml`: Outlines differences in price generation and gamification between participants.
-- `prices_markov_main_*.csv` & `prices_markov_robust_*.csv`: Contain pregenerated prices based on Markov or martingale models, with indices corresponding to round numbers.
 
 ## Frontend
 The platform's user interface is built using Vue 2.x. Compiled files are located in `_static/front/js` and `_static/front/css`. Gifs displayed for user awards (based on transaction numbers set in settings) are in `_static/img`.
