@@ -20,18 +20,20 @@ This repository, structured into three apps, includes:
 
 ## Usage
 To start the application:
-1. Run `otree devserver`.
-2. If first-time running, remove older files:
+1. Run:
+   ```she
+   otree devserver
    ```
+2. If first-time running, remove older files:
+   ```she
    rm -rf __temp_migrations
    rm -rf db.sqlite3
    ```
-
-## Contributing
-Contributions are welcome. Please refer to the contribution guidelines for more details.
+3. The launched server will be available at [localhost:8000](http://localhost:8000). 
+    To change the default port, run for instance `otree devserver 1234`, and it will then be available at [localhost:1234](http://localhost:1234).
 
 ## License
-This project is licensed under [appropriate license], allowing use and distribution per license terms.
+This project is licensed under MIT license, allowing use and distribution per license terms.
 
 ## Acknowledgements
 This project supports research by Chapkovski, Khapko, and Zoican (2023). For more information, [refer to the paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3971868).
