@@ -55,6 +55,18 @@ This model captures details such as the type of event (e.g., GAME_STARTS, awardF
 
 All this data can be downloaded in CSV format via the `Data -> Third-party data export -> Events export` option.
 
+## Configuration Files
+This section includes descriptions of various configuration files used in the project:
+- `blocks.yaml`: Describes platform design parameters for each trading round.
+- `financial_quiz.yaml`: Contains the financial quiz.
+- `treatments.yaml`: Outlines differences in price generation and gamification between participants.
+- `prices_markov_main_*.csv` & `prices_markov_robust_*.csv`: Contain pregenerated prices based on Markov or martingale models, with indices corresponding to round numbers.
+
+## Frontend
+The platform's user interface is built using Vue 2.x. Compiled files are located in `_static/front/js` and `_static/front/css`. Gifs displayed for user awards (based on transaction numbers set in settings) are in `_static/img`.
+
+The source code for the Vue app can be found at: [newgamifiedtrader repository](https://github.com/chapkovski/newgamifiedtrader/).
+
 ## Contributing
 Contributions are welcome. Please refer to the contribution guidelines for more details.
 
